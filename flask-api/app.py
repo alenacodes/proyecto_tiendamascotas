@@ -49,6 +49,9 @@ def addUsuario():
         user = Usuario()
        
         # asignar a variables lo que recibo mediante post
+        user.correo = request.json.get('correo')
+        user.password = request.json.get('password')
+        user.estado = request.json.get('estado')    
         user.primer_nombre = request.json.get('primer_nombre')
         user.segundo_nombre = request.json.get('segundo_nombre')
         user.apellido_paterno = request.json.get('apellido_paterno')
@@ -99,7 +102,9 @@ def deleteUsuario(id):
 def updateUsuario(id):
     try:
         user = Usuario.query.get(id)
-        
+        user.correo = request.json.get('correo')
+        user.password = request.json.get('password')
+        user.estado = request.json.get('estado')
         user.primer_nombre = request.json.get('primer_nombre')
         user.segundo_nombre = request.json.get('segundo_nombre')
         user.apellido_paterno = request.json.get('apellido_paterno')
@@ -113,8 +118,80 @@ def updateUsuario(id):
         exception("[SERVER]: Error ->")
         return jsonify({"msg": "Ha ocurrido un Error"}), 500
 
+#----------------------------------------------------------------------
 
+# Ruta para agregar productos
+@app.route('/producto', methods=['POST'])
+def addProducto():
+    try:
+        product = Producto()
+       
+        # asignar a variables lo que recibo mediante post
+        product.id_producto = request.json.get('id_producto')
+        product.codigo = request.json.get('codigo')   
+        product.nombre = request.json.get('nombre')
+        product.valor_venta = request.json.get('valor_venta')
+        product.stock = request.json.get('stock')
+        product.descripcion = request.json.get('descripcion')
+        product.imagen = request.json.get('imagen')
+        product.estado = request.json.get('estado')
+        #if not user:
+        Producto.save(product)
+        return jsonify(product.serialize()),200
+        #else:
+        #    return jsonify({"msg": "El usuario ya existe"}), 200
+    except Exception:
+        exception("[SERVER]: Error ->")
+        return jsonify({"msg": "Ha ocurrido un Error"}), 500
 
+# Ruta para consultar todos los productos
+@app.route('/producto', methods=['GET'])
+def getProductos():
+    try:
+        
+        product = Producto.query.all()
+        #user = list(map(lambda x: x.serialize(), user))
+        toreturn = [usi.serialize() for usi in product]
+        #return jsonify(user),200 # Es ok y codifica a tipo Json
+        return jsonify(toreturn),200 # Es ok y codifica a tipo Json
+    except Exception:
+        exception ("[SERVER]: Error ->")
+        return jsonify({"msg": "Ha ocurrido un ERROR"}), 500
+
+# Borrar Producto
+@app.route('/producto/<id_producto>', methods=['DELETE'])
+def deleteProducto(id_producto):
+    try:
+        product = Producto.query.get(id_producto)
+        if not product:
+            return jsonify({"msg": "El ID de producto no existe"}), 200
+        else:
+            Producto.delete(product)
+            return jsonify(product.serialize()),200
+    except Exception:
+        exception("[SERVER]: Error ->")
+        return jsonify({"msg": "Ha ocurrido un Error"}), 500
+
+#Modificar Producto
+@app.route('/producto/<id_producto>', methods=['PUT'])
+def updateProducto(id_producto):
+    try:
+        product = Producto.query.get(id_producto)
+        product.id_producto = request.json.get('id_producto')
+        product.codigo = request.json.get('codigo')   
+        product.nombre = request.json.get('nombre')
+        product.valor_venta = request.json.get('valor_venta')
+        product.stock = request.json.get('stock')
+        product.descripcion = request.json.get('descripcion')
+        product.imagen = request.json.get('imagen')
+        product.estado = request.json.get('estado')
+        
+        Producto.save(product)
+        return jsonify(product.serialize()),200
+        
+    except Exception:
+        exception("[SERVER]: Error ->")
+        return jsonify({"msg": "Ha ocurrido un Error"}), 500
 
 # 8. comando para iniciar mi app flask: flask db init
 # 9. comando para migrar mis modelos:   flask db migrate

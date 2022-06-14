@@ -3,10 +3,14 @@ from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
+# Tabla Usuario
 #Creación de tabla usuario
 class Usuario(db.Model):
     __tablename__ = 'Usuario'
     id = db.Column(db.Integer, primary_key=True)
+    correo = db.Column(db.String(250), nullable= False)
+    password = db.Column(db.String(250), nullable= False)
+    estado = db.Column(db.Integer, nullable= False)
     primer_nombre = db.Column(db.String(250), nullable= False)
     segundo_nombre = db.Column(db.String(250), nullable= True)
     apellido_paterno = db.Column(db.String(250), nullable= False)
@@ -14,8 +18,11 @@ class Usuario(db.Model):
     direccion = db.Column(db.String(250), nullable= False)
 
     def __str__(self):
-        return "\nID: {}. Primer Nombre: {}. Segundo Nombre: {}. Apellido Paterno: {}. Apellido Materno: {}. Dirección: {}.\n".format(
+        return "\nID: {}. Correo {}. Password {}. Estado {}. Primer Nombre: {}. Segundo Nombre: {}. Apellido Paterno: {}. Apellido Materno: {}. Dirección: {}.\n".format(
             self.id,
+            self.correo,
+            self.password,
+            self.estado,
             self.primer_nombre,
             self.segundo_nombre,
             self.apellido_paterno,
@@ -25,6 +32,9 @@ class Usuario(db.Model):
     def serialize(self):
         return{
             "id": self.id,
+            "correo":self.correo,
+            "password":self.password,
+            "estado":self.estado,
             "primer_nombre": self.primer_nombre,
             "segundo_nombre": self.segundo_nombre,
             "apellido_paterno": self.apellido_paterno,
@@ -152,8 +162,8 @@ class Descuento (db.Model):
 class Descuento_producto (db.Model):
     __tablename__ = 'descuento_producto'
     id = db.Column(db.Integer, primary_key = True, autoincrement=True)
-    producto_id = db.Column(db.Integer, db.Foreignkey('producto.id_producto'), nullable = False)
-    descuento_id = db.Column(db.Integer, db.Foreignkey('descuento.id_descuento'), nullable = False)
+    #producto_id = db.Column(db.Integer, db.Foreignkey('producto.id_producto'), nullable = False)
+    #descuento_id = db.Column(db.Integer, db.Foreignkey('descuento.id_descuento'), nullable = False)
     fecha_inicio = db.Column(db.Date, nullable = False)
     fecha_termino = db.Column(db.Integer, nullable = False)
     #Region_id_region = db.Column(db.Integer, db.ForeignKey('Region.id_region'), nullable = False)
@@ -192,7 +202,7 @@ class Descuento_producto (db.Model):
 #Creación tabla Producto
 class Producto (db.Model):
     __tablename__ = 'producto'
-    id_producto = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id_producto = db.Column(db.Integer, primary_key=True)
     codigo = db.Column(db.String(250), nullable = False )
     nombre = db.Column(db.String(250), nullable = False )
     valor_venta = db.Column(db.Integer, nullable = False )
@@ -226,7 +236,7 @@ class Producto (db.Model):
             "stock":self.stock,
             "descripcion":self.descripcion,
             "imagen": self.imagen,
-            "estyado": self.estado
+            "estado": self.estado
                       
                        
         }
