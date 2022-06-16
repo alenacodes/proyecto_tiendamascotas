@@ -4,9 +4,10 @@
 #from crypt import methods
 from flask import Flask, request, jsonify
 from flask_migrate import Migrate
-from models import db, Usuario, Region, Comuna, Descuento, Descuento_producto, Producto
+from models import db, Usuario, Region, Comuna, Descuento, Descuento_producto, Producto, Suscripcion, Donacion, Detalle, Venta, Vendedor, Despacho
 from flask_cors import CORS, cross_origin
 from logging import exception
+from sqlalchemy.orm import relationship
 
 # 3. instanciamos la app
 app = Flask(__name__)
