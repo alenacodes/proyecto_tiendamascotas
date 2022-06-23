@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#bla"  />
+    <title>petshop</title>
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+      crossorigin="anonymous"
+    /> 
+
+
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="container-fluid bg-light position-sticky top-0">
+      <ul
+        class="nav nav-pills mb-3 py-3 container"
+        id="pills-tab"
+        role="tablist">
+          <li class="nav-item" role="presentation">
+          <a
+            class="nav-link nav-link-color"
+            id="pills-profile-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#pills-profile"
+            type="button"
+            role="tab"
+            aria-controls="pills-profile"
+            aria-selected="false">Productos</a
+          >
+        </li>
+        <li class="nav-item" role="presentation">
+          <a
+            class="nav-link nav-link-color"
+            id="pills-contact-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#pills-contact"
+            type="button"
+            role="tab"
+            aria-controls="pills-contact"
+            aria-selected="false"
+            >Carrito</a
+          >
+        </li>
+        
+      </ul>
+    </header>
+
+    <div class="alert container position-sticky top-0 alert-primary hide" role="alert">
+    ¡Producto Añadido al Carrito!
+    </div>
+    <div class="alert container position-sticky top-0 alert-danger remove" role="alert">
+      ¡Producto Eliminado del Carrito!
+    </div>
+
+    <div class="tab-content" id="pills-tabContent">
+      <div
+        class="tab-pane fade "
+        id="pills-home"
+        role="tabpanel"
+        aria-labelledby="pills-home-tab"
+      >
+      </div>
+      <div class="tab-pane fade show active container" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+      <!--CATÁLOGO-->
+        <h2 class="h4 m-4 text-alert">Nuestro Catálogo</h2>
+        <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+
+          <div class="col d-flex justify-content-center mb-4">
+            <div class="card shadow mb-1 bg-light rounded" style="width: 20rem;">
+              <h5 class="card-title pt-2 text-center text-alert">PAWISE - CAMA 3 EN 1
+                PAWISE
+              </h5>
+              <img src="img-carrito/pawise-cama-3-en-1.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text text-black-50 description">Medidas 48 x 41 x 14 cm</p>
+                <h5 class="text-alert">Precio: <span class="precio">$32900</span></h5>
+                <div class="d-grid gap-2">
+                <button  class="btn btn-success button">Añadir al Carrito</button>
+              </div>
+              </div>
+            </div>
+          </div>
+          <!------------------------------------------------------------>
+          <div class="col d-flex justify-content-center mb-4">
+            <div class="card shadow mb-1 bg-light rounded" style="width: 20rem;">
+              <h5 class="card-title pt-2 text-center text-alert"> DOGIT DREAMWELL CAMA RECTANGULAR</h5>
+              <img src="img-carrito/dogit-dreamwell-cama-rectangular.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text text-black-50 description">Medidas: 60x51x23 cm</p>
+                <h5 class="text-alert">Precio: <span class="precio">$34000</span></h5>
+                <div class="d-grid gap-2">
+                <button  class="btn btn-success button">Añadir al Carrito</button>
+              </div>
+              </div>
+            </div>
+          </div>
+          <!------------------------------------------------------------>
+          <div class="col d-flex justify-content-center mb-4">
+            <div class="card shadow mb-1 bg-light rounded" style="width: 20rem;">
+              <h5 class="card-title pt-2 text-center text-alert">DOGIT PLATO PERROS ANSIOSOS</h5>
+              <img src="img-carrito/dogit-plato-perros-ansiosos.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text text-black-50 description">Disponible en tres tamaños y en color blanco.</p>
+                <h5 class="text-alert">Precio: <span class="precio">$20000</span></h5>
+                <div class="d-grid gap-2">
+                <button  class="btn btn-success button">Añadir al Carrito</button>
+              </div>
+              </div>
+            </div>
+          </div>
+          <!------------------------------------------------------------>
+          <div class="col d-flex justify-content-center mb-4">
+            <div class="card shadow mb-1 bg-light rounded" style="width: 20rem;">
+              <h5 class="card-title pt-2 text-center text-alert">DOGIT JAULA DE TRANSPORTE VOYAGEUR SMALL</h5>
+              <img src="img-carrito/dogit-jaula-de-transporte-voyageur-small.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text text-black-50 description">Varios colores. Medidas: 48,3 x 32,5 x 28 cm, para perros con altura máxima de 24cm. </p>
+                <h5 class="text-alert">Precio: <span class="precio">$33500</span></h5>
+                <div class="d-grid gap-2">
+                <button  class="btn btn-success button">Añadir al Carrito</button>
+              </div>
+              </div>
+            </div>
+          </div>
+          <!------------------------------------------------------------>
+          <div class="col d-flex justify-content-center mb-4">
+            <div class="card shadow mb-1 bg-light rounded" style="width: 20rem;">
+              <h5 class="card-title pt-2 text-center text-alert">CATIT BOLA PARA GOLOSINAS</h5>
+              <img src="img-carrito/catit-bola-para-golosinas.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text text-black-50 description">El espacio destinado a meter las golosinas también puede ser cerrado en una pelota sencilla.</p>
+                <h5 class="text-alert">Precio: <span class="precio">$6500</span></h5>
+                <div class="d-grid gap-2">
+                <button  class="btn btn-success button">Añadir al Carrito</button>
+              </div>
+              </div>
+            </div>
+          </div>
+          <!------------------------------------------------------------>
+          <div class="col d-flex justify-content-center mb-4">
+            <div class="card shadow mb-1 bg-light rounded" style="width: 20rem;">
+              <h5 class="card-title pt-2 text-center text-alert">CATIT RASGUÑADOR "TIGRE BLANCO"</h5>
+              <img src="img-carrito/catit-rasguñador-tigre-blanco.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text text-black-50 description">Incluye Catnip estimulante para gatos.
+                  Medidas: Largo 48 cm- Ancho 21 cm- Alto 8cm </p>
+                <h5 class="text-alert">Precio: <span class="precio">$11900</span></h5>
+                <div class="d-grid gap-2">
+                <button  class="btn btn-success button">Añadir al Carrito</button>
+              </div>
+              </div>
+            </div>
+          </div>
+          <!------------------------------------------------------------>
+          <div class="col d-flex justify-content-center mb-4">
+            <div class="card shadow mb-1 bg-light rounded" style="width: 20rem;">
+              <h5 class="card-title pt-2 text-center text-alert">ARENERO CATIT</h5>
+              <img src="img-carrito/arenero.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text text-black-50 description">Arenero sanitario para gatos.</p>
+                <h5 class="text-alert">Precio: <span class="precio">$18000</span></h5>
+                <div class="d-grid gap-2">
+                <button  class="btn btn-success button">Añadir al Carrito</button>
+              </div>
+              </div>
+            </div>
+          </div>
+          <!------------------------------------------------------------>
+          <div class="col d-flex justify-content-center mb-4">
+            <div class="card shadow mb-1 bg-light rounded" style="width: 20rem;">
+              <h5 class="card-title pt-2 text-center text-alert">Jaula hamster 3 pisos + tubos</h5>
+              <img src="img-carrito/jaula hamster.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text text-black-50 description">Disponibilidad de color según stock.</p>
+                <h5 class="text-alert">Precio: <span class="precio">$25000</span></h5>
+                <div class="d-grid gap-2">
+                <button  class="btn btn-success button">Añadir al Carrito</button>
+              </div>
+              </div>
+            </div>
+          </div>
+          <!------------------------------------------------------------>
+        </div>
+<!--FIN DEL CATÁLOGO-->
+      </div>
+<!--carrito-->      
+      <div
+        class="tab-pane fade carrito"
+        id="pills-contact"
+        role="tabpanel"
+        aria-labelledby="pills-contact-tab"
+      >
+      <br>
+      <table class="table table-light table-hover">
+        <thead>
+          <tr class="text-alert">
+            <th scope="col">#</th>
+            <th scope="col">Productos</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Cantidad</th>
+          </tr>
+        </thead>
+        <tbody class="tbody">         
+        </tbody>
+      </table>
+      <br><br>
+      <div class="row mx-4">
+        <div class="col">
+          </p> <h3 class="itemCartTotal text-black">Total: 0</h3>
+        </div>
+        <div class="col d-flex justify-content-end">
+          <button class="btn btn-success">COMPRAR</button>
+        </div>
+      </div>   
+      </div>
+    </div>
+<!--fin del carrito-->
+
+    <footer class="bg-light p-3 mt-5">
+      <p class="text-center m-0 text-muted">Created by Camila, Mauricio y Manuel</p>
+    </footer>
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./js/scripts.js"></script>
+  </body>
+</html>
