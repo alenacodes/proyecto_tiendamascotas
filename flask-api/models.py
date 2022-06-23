@@ -11,7 +11,7 @@ class Usuario(db.Model):
     __tablename__ = 'Usuario'
     id = db.Column(db.Integer, primary_key=True)
     correo = db.Column(db.String(250), nullable= False)
-    password = db.Column(db.String(250), nullable= False)
+    password = db.Column(db.String(250), nullable= True)
     estado = db.Column(db.Integer, nullable= False)
     primer_nombre = db.Column(db.String(250), nullable= False)
     segundo_nombre = db.Column(db.String(250))
@@ -62,19 +62,19 @@ class Usuario(db.Model):
 #creación de tabla Region
 class Region (db.Model):
     __tablename__ = 'Region'
-    id_region = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id_region = db.Column(db.Integer, primary_key=True, nullable=False)
     nombre = db.Column(db.String(250), nullable= False)
     
     def __str__(self):
-        return "\nID: {}. Nombre Región: {}. \n".format(
+        return "\nid_region: {}. nombre Region: {}. \n".format(
             self.id_region,
             self.nombre,
         )
     
     def serialize(self):
         return{
-            "id": self.id_region,
-            "Nombre": self.nombre,
+            "id_region": self.id_region,
+            "nombre": self.nombre,
             
         }
     def save(self):
@@ -91,7 +91,7 @@ class Region (db.Model):
 #Creación de tabla comuna
 class Comuna (db.Model):
     __tablename__ = 'Comuna'
-    id_comuna = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id_comuna = db.Column(db.Integer, primary_key=True, nullable = False)
     nombre = db.Column(db.String(250), nullable= False)
     Region_id_region = db.Column(db.Integer, ForeignKey('Region.id_region'), nullable = False)
     
@@ -125,7 +125,7 @@ class Comuna (db.Model):
 
 class Descuento (db.Model):
     __tablename__ = 'Descuento'
-    id_descuento = db.Column(db.Integer, primary_key=True)
+    id_descuento = db.Column(db.Integer, primary_key=True, nullable = False)
     nombre = db.Column(db.String(250), nullable= False)
     fecha = db.Column(db.Date)
     porcentaje = db.Column(db.Integer, nullable = False)
@@ -167,20 +167,18 @@ class Descuento (db.Model):
 class Descuento_producto (db.Model):
     __tablename__ = 'descuento_producto'
     id = db.Column(db.Integer, primary_key = True, autoincrement=True)
-    producto_id = db.Column(db.Integer)
-    descuento_id = db.Column(db.Integer, db.ForeignKey('Descuento.id_descuento'), nullable = False)
+    producto_id = db.Column(db.Integer, db.ForeignKey('producto.id_producto'), nullable = False)
+    descuento_id = db.Column(db.Integer, nullable = False)
     fecha_inicio = db.Column(db.Date)
     fecha_termino = db.Column(db.Integer)
-    #producto = relationship("Producto", Foreign_keys=[producto_id])
-    #descuento = relationship("Descuento", Foreign_keys=[descuento_id])
-    #producto = relationship("Producto")
-    #descuento = relationship("Descuento")
+    #producto_desc_prod= relationship('Producto', foreign_Keys=[producto_id])
+    #desc_prod_descuento = relationship('Descuento', foreign_Keys=[descuento_id])
     
    
 
     
     def __str__(self):
-        return "\nID: {}. Producto_ID: {}. Descto ID: {}. Fecha Inicio: {}. Fecha Termino: {}. \n".format(
+        return "\nid: {}. Producto_ID: {}. Descto ID: {}. Fecha Inicio: {}. Fecha Termino: {}. \n".format(
             self.id,
             self.producto_id,
             self.descuento_id,
@@ -391,64 +389,6 @@ class Detalle (db.Model):
         db.session.delete(self)
         db.session.commit()
         
-
-
-#Creación tabla Venta
-class Venta (db.Model):
-    __tablename__ = 'venta'
-    id_venta = db.Column(db.Integer, primary_key=True, nullable=False)
-    fecha = db.Column(db.Date, nullable = False)
-    descuento = db.Column(db.Integer)
-    sub_total = db.Column(db.Integer, nullable = False)
-    iva = db.Column(db.Integer, nullable = False)
-    total = db.Column(db.Integer, nullable = False)
-    estado = db.Column(db.String(1), nullable = False)
-    cliente_id = db.Column(db.Integer, db.ForeignKey('Usuario.id'), nullable = False)
-    vendedor_id = db.column(db.Integer) #db.ForeignKey('Vendedor.id_vendedor'))
-    despacho_id = db.Column(db.Integer, nullable=False) #db.ForeignKey('Despacho.id_despacho'))
-    
-        
-    def __str__(self):
-        return "\nID_venta: {}. fecha: {}. descuento: {}. sub_total: {}. iva: {}. total: {}. estado: {}. cliente_id: {}. vendedor_id {}. despacho_id{}.\n".format(
-            self.id_venta,
-            self.fecha,
-            self.descuento,
-            self.sub_total,
-            self.iva,
-            self.total,
-            self.estado,
-            self.cliente_id,
-            self.vendedor_id,
-            self.despacho_id
-                                  
-        )
-    
-    def serialize(self):
-        return{
-            "id_venta": self.id_venta,
-            "fecha": self.fecha,
-            "descuento": self.descuento,
-            "sub_total": self.sub_total,
-            "iva": self.iva,
-            "total": self.total,
-            "estado": self.estado,
-            "cliente_id": self.cliente_id,
-            "vendedor_id": self.vendedor_id,
-            "despacho_id":self.despacho_id
-                                  
-        }
-
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-    
-    def update(self):
-        db.session.commit()
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
- 
  #Crear Tabla Vendedor
  
 class Vendedor (db.Model):
@@ -464,7 +404,7 @@ class Vendedor (db.Model):
     fono = db.Column(db.Integer, nullable = False)
     correo = db.Column(db.String(250), nullable = False)
     estado = db.Column(db.String(1), nullable = False)
-    comuna_id = db.Column(db.Integer, db.ForeignKey('Comuna.id_comuna'), nullable = False)
+    comuna_id = db.Column(db.Integer, ForeignKey('Comuna.id_comuna'), nullable = False)
     
            
     def __str__(self):
@@ -511,6 +451,64 @@ class Vendedor (db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+
+#Creación tabla Venta
+class Venta (db.Model):
+    __tablename__ = 'venta'
+    id_venta = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
+    fecha = db.Column(db.Date, nullable = False)
+    descuento = db.Column(db.Integer)
+    sub_total = db.Column(db.Integer, nullable = False)
+    iva = db.Column(db.Integer, nullable = False)
+    total = db.Column(db.Integer, nullable = False)
+    estado = db.Column(db.String(1), nullable = False)
+    vendedor_id = db.Column(db.Integer, ForeignKey('vendedor.id_vendedor'), nullable=False) #Id Vendedor que debería ser foránea
+    cliente_id = db.Column(db.Integer, db.ForeignKey('Usuario.id'), nullable = False)
+    despacho_id = db.Column(db.Integer, db.ForeignKey('despacho.id_despacho'), nullable = False)
+    
+        
+    def __str__(self):
+        return "\nID_venta: {}. fecha: {}. descuento: {}. sub_total: {}. iva: {}. total: {}. estado: {}. vendedor_id: {}. cliente_id: {}.  despacho_id: {}.\n".format(
+            self.id_venta,
+            self.fecha,
+            self.descuento,
+            self.sub_total,
+            self.iva,
+            self.total,
+            self.estado,
+            self.cliente_id,
+            self.vendedor_id,
+            self.despacho_id
+                                  
+        )
+    
+    def serialize(self):
+        return{
+            "id_venta": self.id_venta,
+            "fecha": self.fecha,
+            "descuento": self.descuento,
+            "sub_total": self.sub_total,
+            "iva": self.iva,
+            "total": self.total,
+            "estado": self.estado,
+            "cliente_id": self.cliente_id,
+            "vendedor_id": self.vendedor_id,
+            "despacho_id":self.despacho_id
+                                  
+        }
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+    
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+ 
 
 #Crear Tabla Despacho
  
