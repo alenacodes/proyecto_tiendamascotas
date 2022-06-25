@@ -7,7 +7,7 @@ from os import access
 from flask import Flask, request, jsonify
 from flask_migrate import Migrate
 from sqlalchemy import desc
-from models import db, Usuario, Region, Comuna, Descuento, Descuento_producto, Producto, Suscripcion, Donacion, Detalle, Venta, Vendedor, Despacho
+from models import db, Usuario, Usuario_car, Region, Comuna, Descuento, Descuento_producto, Producto, Producto_carrito, Suscripcion, Donacion, Detalle, Venta, Vendedor, Despacho
 from flask_cors import CORS, cross_origin
 from logging import exception
 from sqlalchemy.orm import relationship
@@ -702,6 +702,188 @@ def updateDespacho(id_despacho):
     except Exception:
         exception("[SERVER]: Error ->")
         return jsonify({"msg": "Ha ocurrido un Error"}), 500
+
+
+#Crear métodos Carrito.
+
+# Ruta para agregar productos
+@app.route('/producto_car', methods=['POST'])
+#@app.jwt_required()
+def addProducto_car():
+    try:
+        product_car = Producto_carrito()
+       
+        # asignar a variables lo que recibo mediante post
+        product_car.id_producto = request.json.get('id_producto')
+        product_car.codigo = request.json.get('codigo')   
+        product_car.nombre = request.json.get('nombre')
+        product_car.valor_venta = request.json.get('valor_venta')
+        product_car.stock = request.json.get('stock')
+        product_car.descripcion = request.json.get('descripcion')
+        product_car.imagen = request.json.get('imagen')
+        product_car.estado = request.json.get('estado')
+        #if not user:
+        Producto_carrito.save(product_car)
+        return jsonify(product_car.serialize()),200
+        #else:
+        #    return jsonify({"msg": "El usuario ya existe"}), 200
+    except Exception:
+        exception("[SERVER]: Error ->")
+        return jsonify({"msg": "Ha ocurrido un Error"}), 500
+
+# Ruta para consultar todos los productos
+@app.route('/producto_car', methods=['GET'])
+#@app.jwt_required()
+def getProductos_car():
+    try:
+        
+        product_car = Producto_carrito.query.all()
+        #user = list(map(lambda x: x.serialize(), user))
+        toreturn = [usi.serialize() for usi in product_car]
+        #return jsonify(user),200 # Es ok y codifica a tipo Json
+        return jsonify(toreturn),200 # Es ok y codifica a tipo Json
+    except Exception:
+        exception ("[SERVER]: Error ->")
+        return jsonify({"msg": "Ha ocurrido un ERROR"}), 500
+
+# Borrar Producto
+@app.route('/producto_car/<id_producto>', methods=['DELETE'])
+#@app.jwt_required()
+def deleteProducto_car(id_producto):
+    try:
+        product_car = Producto_carrito.query.get(id_producto)
+        if not product_car:
+            return jsonify({"msg": "El ID de producto no existe"}), 200
+        else:
+            Producto_carrito.delete(product_car)
+            return jsonify(product_car.serialize()),200
+    except Exception:
+        exception("[SERVER]: Error ->")
+        return jsonify({"msg": "Ha ocurrido un Error"}), 500
+
+#Modificar Producto
+@app.route('/producto_car/<id_producto>', methods=['PUT'])
+#@app.jwt_required()
+def updateProducto_car(id_producto):
+    try:
+        product_car = Producto_carrito.query.get(id_producto)
+        product_car.id_producto = request.json.get('id_producto')
+        product_car.codigo = request.json.get('codigo')   
+        product_car.nombre = request.json.get('nombre')
+        product_car.valor_venta = request.json.get('valor_venta')
+        product_car.stock = request.json.get('stock')
+        product_car.descripcion = request.json.get('descripcion')
+        product_car.imagen = request.json.get('imagen')
+        product_car.estado = request.json.get('estado')
+        
+        Producto_carrito.save(product_car)
+        return jsonify(product_car.serialize()),200
+        
+    except Exception:
+        exception("[SERVER]: Error ->")
+        return jsonify({"msg": "Ha ocurrido un Error"}), 500
+
+#Crear usuario-Boleta
+
+# 7. Ruta para consultar todos los Usuarios
+@app.route('/usuarios_car', methods=['GET'])
+#@app.jwt_required()
+def getUsuarios_car():
+    try:
+        
+        user = Usuario_car.query.all()
+        #user = list(map(lambda x: x.serialize(), user))
+        toreturn = [usi.serialize() for usi in user]
+        #return jsonify(user),200 # Es ok y codifica a tipo Json
+        return jsonify(toreturn),200 # Es ok y codifica a tipo Json
+    except Exception:
+        exception ("[SERVER]: Error ->")
+        return jsonify({"msg": "Ha ocurrido un ERROR"}), 500
+
+# 12. Ruta para agregar usuario
+@app.route('/usuarios_car', methods=['POST'])
+#@app.jwt_required()
+def addUsuario_car():
+    try:
+        user = Usuario_car()
+       
+        # asignar a variables lo que recibo mediante post
+        user.correo = request.json.get('correo')
+        user.password = request.json.get('password')
+        user.estado = request.json.get('estado')    
+        user.primer_nombre = request.json.get('primer_nombre')
+        user.segundo_nombre = request.json.get('segundo_nombre')
+        user.apellido_paterno = request.json.get('apellido_paterno')
+        user.apellido_materno = request.json.get('apellido_materno')
+        user.direccion = request.json.get('direccion')
+        user.comuna_id = request.json.get('comuna_id')
+        #if not user:
+        Usuario_car.save(user)
+        return jsonify(user.serialize()),200
+        #else:
+        #    return jsonify({"msg": "El usuario ya existe"}), 200
+    except Exception:
+        exception("[SERVER]: Error ->")
+        return jsonify({"msg": "Ha ocurrido un Error"}), 500
+    
+   
+
+# 13. Creamos metodo para consultar un usuario en especifico por ID
+@app.route('/usuarios_car/<id>', methods=['GET'])
+#@app.jwt_required()
+def getUsuario_car(id):
+    try:
+        user = Usuario_car.query.get(id)
+                 
+        if not user:
+            return jsonify({"msg": "El ID de usuario no existe"}), 200
+        else:
+            return jsonify(user.serialize()),200
+    except Exception:
+        exception("[SERVER]: Error ->")
+        return jsonify({"msg": "Ha ocurrido un Error"}), 500
+
+
+# 14. Borrar usuario
+@app.route('/usuarios_car/<id>', methods=['DELETE'])
+#@app.jwt_required()
+def deleteUsuario_car(id):
+    try:
+        user = Usuario_car.query.get(id)
+        if not user:
+            return jsonify({"msg": "El ID de usuario no existe"}), 200
+        else:
+            Usuario_car.delete(user)
+            return jsonify(user.serialize()),200
+    except Exception:
+        exception("[SERVER]: Error ->")
+        return jsonify({"msg": "Ha ocurrido un Error"}), 500
+        
+# 15. Modificar Usuario
+@app.route('/usuarios_car/<id>', methods=['PUT'])
+#@app.jwt_required()
+def updateUsuario_car(id):
+    try:
+        user = Usuario_car.query.get(id)
+        user.correo = request.json.get('correo')
+        user.password = request.json.get('password')
+        user.estado = request.json.get('estado')
+        user.primer_nombre = request.json.get('primer_nombre')
+        user.segundo_nombre = request.json.get('segundo_nombre')
+        user.apellido_paterno = request.json.get('apellido_paterno')
+        user.apellido_materno = request.json.get('apellido_materno')
+        user.direccion = request.json.get('direccion')
+        user.comuna_id = request.json.get('comuna_id')
+        
+        Usuario_car.save(user)
+        return jsonify(user.serialize()),200
+        
+    except Exception:
+        exception("[SERVER]: Error ->")
+        return jsonify({"msg": "Ha ocurrido un Error"}), 500
+
+
+
 
 # 8. comando para iniciar mi app flask: flask db init
 # 9. comando para migrar mis modelos:   flask db migrate

@@ -59,6 +59,59 @@ class Usuario(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+#Creación de tabla usuario-Carrito
+class Usuario_car(db.Model):
+    __tablename__ = 'Usuario_car'
+    id = db.Column(db.Integer, primary_key=True)
+    correo = db.Column(db.String(250), nullable= False)
+    password = db.Column(db.String(250), nullable= True)
+    estado = db.Column(db.Integer, nullable= False)
+    primer_nombre = db.Column(db.String(250), nullable= False)
+    segundo_nombre = db.Column(db.String(250))
+    apellido_paterno = db.Column(db.String(250), nullable= False)
+    apellido_materno = db.Column(db.String(250))
+    direccion = db.Column(db.String(250), nullable= False)
+    comuna_id = db.Column(db.Integer, ForeignKey('Comuna.id_comuna'))
+
+    def __str__(self):
+        return "\nID: {}. Correo {}. Password {}. Estado {}. Primer Nombre: {}. Segundo Nombre: {}. Apellido Paterno: {}. Apellido Materno: {}. Dirección: {}.\n".format(
+            self.id,
+            self.correo,
+            self.password,
+            self.estado,
+            self.primer_nombre,
+            self.segundo_nombre,
+            self.apellido_paterno,
+            self.apellido_materno,
+            self.direccion,
+            self.comuna_id
+        )
+    def serialize(self):
+        return{
+            "id": self.id,
+            "correo":self.correo,
+            "password":self.password,
+            "estado":self.estado,
+            "primer_nombre": self.primer_nombre,
+            "segundo_nombre": self.segundo_nombre,
+            "apellido_paterno": self.apellido_paterno,
+            "apellido_materno": self.apellido_materno,
+            "direccion": self.direccion,
+            "comuna": self.comuna_id
+        }
+    
+    
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+    
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 #creación de tabla Region
 class Region (db.Model):
     __tablename__ = 'Region'
@@ -261,6 +314,62 @@ class Producto (db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+#Creación tabla producto-Carrito
+
+#Creación tabla Producto
+class Producto_carrito (db.Model):
+    __tablename__ = 'producto_carrito'
+    id_producto = db.Column(db.Integer, primary_key=True)
+    codigo = db.Column(db.String(250), nullable = False )
+    nombre = db.Column(db.String(250), nullable = False )
+    valor_venta = db.Column(db.Integer, nullable = False )
+    stock = db.Column(db.Integer)
+    descripcion = db.Column(db.String(250))
+    imagen = db.Column(db.String(250))
+    estado = db.Column(db.String(1), nullable = False)
+    
+    
+        
+    def __str__(self):
+        return "\nID_Producto: {}. Codigo: {}. Nombre: {}. Valor venta: {}. Stock: {}. Descripcion: {}. Imagen: {}. Estado: {}. \n".format(
+            self.id_producto,
+            self.codigo,
+            self.nombre,
+            self.valor_venta,
+            self.stock,
+            self.descripcion,
+            self.imagen,
+            self.estado,
+            
+                       
+        )
+    
+    def serialize(self):
+        return{
+            "id_producto": self.id_producto,
+            "codigo": self.codigo,
+            "nombre": self.nombre,
+            "valor_venta": self.valor_venta,
+            "stock":self.stock,
+            "descripcion":self.descripcion,
+            "imagen": self.imagen,
+            "estado": self.estado
+                      
+                       
+        }
+    
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+    
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 
 #Creación tabla Suscripción
 class Suscripcion (db.Model):
