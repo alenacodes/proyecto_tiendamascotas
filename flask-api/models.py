@@ -18,7 +18,7 @@ class Usuario(db.Model):
     apellido_paterno = db.Column(db.String(250), nullable= False)
     apellido_materno = db.Column(db.String(250))
     direccion = db.Column(db.String(250), nullable= False)
-    comuna_id = db.Column(db.Integer, ForeignKey('Comuna.id_comuna'))
+    comuna_id = db.Column(db.Integer, db.ForeignKey('Comuna.id_comuna'))
 
     def __str__(self):
         return "\nID: {}. Correo {}. Password {}. Estado {}. Primer Nombre: {}. Segundo Nombre: {}. Apellido Paterno: {}. Apellido Materno: {}. Dirección: {}.\n".format(
@@ -62,7 +62,7 @@ class Usuario(db.Model):
 #Creación de tabla usuario-Carrito
 class Usuario_car(db.Model):
     __tablename__ = 'Usuario_car'
-    id = db.Column(db.Integer, primary_key=True)
+    id_car = db.Column(db.Integer, primary_key=True)
     correo = db.Column(db.String(250), nullable= False)
     password = db.Column(db.String(250), nullable= True)
     estado = db.Column(db.Integer, nullable= False)
@@ -71,11 +71,11 @@ class Usuario_car(db.Model):
     apellido_paterno = db.Column(db.String(250), nullable= False)
     apellido_materno = db.Column(db.String(250))
     direccion = db.Column(db.String(250), nullable= False)
-    comuna_id = db.Column(db.Integer, ForeignKey('Comuna.id_comuna'))
+    comuna_id = db.Column(db.Integer, nullable=False)
 
     def __str__(self):
         return "\nID: {}. Correo {}. Password {}. Estado {}. Primer Nombre: {}. Segundo Nombre: {}. Apellido Paterno: {}. Apellido Materno: {}. Dirección: {}.\n".format(
-            self.id,
+            self.id_car,
             self.correo,
             self.password,
             self.estado,
@@ -88,7 +88,7 @@ class Usuario_car(db.Model):
         )
     def serialize(self):
         return{
-            "id": self.id,
+            "id": self.id_car,
             "correo":self.correo,
             "password":self.password,
             "estado":self.estado,
@@ -117,19 +117,20 @@ class Region (db.Model):
     __tablename__ = 'Region'
     id_region = db.Column(db.Integer, primary_key=True, nullable=False)
     nombre = db.Column(db.String(250), nullable= False)
-    
+    numero = db.Column(db.String(10), nullable=False)
     def __str__(self):
-        return "\nid_region: {}. nombre Region: {}. \n".format(
+        return "\nid_region: {}. nombre Region: {}. numero: {}.\n".format(
             self.id_region,
             self.nombre,
+            self.numero
         )
     
     def serialize(self):
         return{
             "id_region": self.id_region,
             "nombre": self.nombre,
-            
-        }
+            "numero": self.numero
+            }
     def save(self):
         db.session.add(self)
         db.session.commit()
@@ -146,21 +147,21 @@ class Comuna (db.Model):
     __tablename__ = 'Comuna'
     id_comuna = db.Column(db.Integer, primary_key=True, nullable = False)
     nombre = db.Column(db.String(250), nullable= False)
-    Region_id_region = db.Column(db.Integer, ForeignKey('Region.id_region'), nullable = False)
-    
+    provincia_id = db.Column(db.Integer, db.ForeignKey('Provincias.id_prov'), nullable = False)
+    provincia = db.relationship('Provincias', backref=db.backref('comuna', lazy='dynamic'))
     
     def __str__(self):
-        return "\nID Comuna: {}. Nombre Comuna: {}. ID Región: {}.\n".format(
+        return "\nID Comuna: {}. Nombre Comuna: {}. ID Provincia: {}.\n".format(
             self.id_comuna,
             self.nombre,
-            self.Region_id_region
+            self.provincia_id
         )
     
     def serialize(self):
         return{
             "id": self.id_comuna,
             "Nombre": self.nombre,
-            "id_Region":self.Region_id_region
+            "id_provincia":self.provincia_id
             
         }
     def save(self):
@@ -173,6 +174,41 @@ class Comuna (db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+
+#Creación tabla provincias
+class Provincias (db.Model):
+    __tablename__ = 'Provincias'
+    id_prov = db.Column(db.Integer, primary_key=True, nullable = False)
+    nombre = db.Column(db.String(250), nullable= False)
+    region_id = db.Column(db.Integer, db.ForeignKey('Region.id_region'), nullable = False)
+    region = db.relationship('Region', backref=db.backref('provincias', lazy=True))
+    
+    def __str__(self):
+        return "\nID Provincia: {}. Nombre: {}. ID Región: {}.\n".format(
+            self.id_prov,
+            self.nombre,
+            self.region_id
+        )
+    
+    def serialize(self):
+        return{
+            "id": self.id_prov,
+            "Nombre": self.nombre,
+            "id_Region":self.region_id
+            
+        }
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+    
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 
 #Creación tabla Descuento
 
@@ -221,11 +257,11 @@ class Descuento_producto (db.Model):
     __tablename__ = 'descuento_producto'
     id = db.Column(db.Integer, primary_key = True, autoincrement=True)
     producto_id = db.Column(db.Integer, db.ForeignKey('producto.id_producto'), nullable = False)
-    descuento_id = db.Column(db.Integer, nullable = False)
+    descuento_id = db.Column(db.Integer, db.ForeignKey('Descuento.id_descuento'), nullable = False)
     fecha_inicio = db.Column(db.Date)
     fecha_termino = db.Column(db.Integer)
-    #producto_desc_prod= relationship('Producto', foreign_Keys=[producto_id])
-    #desc_prod_descuento = relationship('Descuento', foreign_Keys=[descuento_id])
+    producto_desc_prod= db.relationship('Producto', backref=db.backref('descuento_producto', lazy=True)) 
+    desc_prod_descuento= db.relationship('Descuento', backref=db.backref('descuento_producto', lazy=True))  
     
    
 
@@ -378,9 +414,8 @@ class Suscripcion (db.Model):
     fecha_inicio = db.Column(db.Date, nullable = False )
     fecha_termino = db.Column(db.Date)
     cliente_id = db.Column(db.Integer, db.ForeignKey('Usuario.id'), nullable = False)
-    
-    
-    
+    suscripcion_cliente= db.relationship('Usuario', backref=db.backref('suscripcion_cliente', lazy=True))
+       
         
     def __str__(self):
         return "\nID_Suscripcion: {}. Fecha_inicio: {}. Fecha_termino: {}. Cliente_id: {}.\n".format(
@@ -419,7 +454,7 @@ class Donacion (db.Model):
     valor = db.Column(db.Integer, nullable = False)
     fecha = db.Column(db.Date, nullable = False )
     cliente_id = db.Column(db.Integer, db.ForeignKey('Usuario.id'), nullable = False)
-       
+    #donacion_cliente= db.relationship('Usuario', backref='donacion_cliente', lazy='dynamic')
         
     def __str__(self):
         return "\nID_Suscripcion: {}. Valor: {}. Fecha: {}. Cliente_id: {}.\n".format(
@@ -461,7 +496,8 @@ class Detalle (db.Model):
     estado = db.Column(db.String(1), nullable = False)
     venta_id = db.Column(db.Integer, db.ForeignKey('venta.id_venta'), nullable = False)
     producto_id = db.Column(db.Integer, db.ForeignKey('producto.id_producto'), nullable = False)
-
+    venta_detalle= db.relationship('Venta', backref='detalle', lazy=True)
+    producto_detalle= db.relationship('Producto', backref='detalle', lazy=True)
         
     def __str__(self):
         return "\nID_detalle: {}. cantidad: {}. Valor: {}. descuento: {}. estado: {}. venta_id: {}. producto_id: {}.\n".format(
@@ -513,8 +549,8 @@ class Vendedor (db.Model):
     fono = db.Column(db.Integer, nullable = False)
     correo = db.Column(db.String(250), nullable = False)
     estado = db.Column(db.String(1), nullable = False)
-    comuna_id = db.Column(db.Integer, ForeignKey('Comuna.id_comuna'), nullable = False)
-    
+    comuna_id = db.Column(db.Integer, db.ForeignKey('Comuna.id_comuna'), nullable = False)
+    comuna_vendedor= db.relationship('Comuna', backref=db.backref('vendedor', lazy='dynamic'))
            
     def __str__(self):
         return "\nID_vendedor: {}. rut: {}. dv: {}. primer_nombre: {}. segundo_nombre: {}. apellido_paterno: {}. apellido_materno: {}. direccion: {}. fono {}. correo: {}. estado: {}. comuna_id: {}.\n".format(
@@ -572,13 +608,15 @@ class Venta (db.Model):
     iva = db.Column(db.Integer, nullable = False)
     total = db.Column(db.Integer, nullable = False)
     estado = db.Column(db.String(1), nullable = False)
-    vendedor_id = db.Column(db.Integer, ForeignKey('vendedor.id_vendedor'), nullable=False) #Id Vendedor que debería ser foránea
+    vendedor_id = db.Column(db.Integer, db.ForeignKey('vendedor.id_vendedor'), nullable=False) #Id Vendedor que debería ser foránea
     cliente_id = db.Column(db.Integer, db.ForeignKey('Usuario.id'), nullable = False)
     despacho_id = db.Column(db.Integer, db.ForeignKey('despacho.id_despacho'), nullable = False)
-    
+    #vendedor_venta= db.relationship('Vendedor', backref=db.backref('venta', lazy='dynamic'))
+    #cliente_venta= db.relationship('Usuario', backref=db.backref('venta', lazy='dynamic'))
+    #despacho_venta= db.relationship('Despacho', backref=db.backref('venta', lazy='dynamic'))
         
     def __str__(self):
-        return "\nID_venta: {}. fecha: {}. descuento: {}. sub_total: {}. iva: {}. total: {}. estado: {}. vendedor_id: {}. cliente_id: {}.  despacho_id: {}.\n".format(
+        return "\nID_venta: {}. fecha: {}. descuento: {}. sub_total: {}. iva: {}. total: {}. estado: {}. cliente_id: {}. vendedor_id: {}.  despacho_id: {}.\n".format(
             self.id_venta,
             self.fecha,
             self.descuento,
@@ -630,8 +668,10 @@ class Despacho (db.Model):
     rut_recibe = db.Column(db.String(10), unique = True)
     nombre_recibe = db.Column(db.String(250))
     esto_despacho = db.Column(db.Integer, nullable = False)
-    venta_id = db.Column(db.Integer, ForeignKey('venta.id_venta'), nullable = False)
+    venta_id = db.Column(db.Integer, db.ForeignKey('venta.id_venta'), nullable = False)
     comuna_id = db.Column(db.Integer, db.ForeignKey('Comuna.id_comuna'), nullable = False)
+    #venta = db.relationship('Venta', backref='despacho', lazy='dynamic')
+    #comuna = db.relationship('Comuna', backref='despacho', lazy=True)
     
            
     def __str__(self):

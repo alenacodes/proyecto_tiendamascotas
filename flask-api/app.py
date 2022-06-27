@@ -2,39 +2,18 @@
 # 1. Crear modelos
 # 2. importamos las librerias de flask
 #from crypt import methods
-import email
-from os import access
+#import email
+#from os import access
 from flask import Flask, request, jsonify
 from flask_migrate import Migrate
 from sqlalchemy import desc
-from models import db, Usuario, Usuario_car, Region, Comuna, Descuento, Descuento_producto, Producto, Producto_carrito, Suscripcion, Donacion, Detalle, Venta, Vendedor, Despacho
+from models import db, Usuario, Usuario_car, Region, Comuna, Descuento, Descuento_producto, Producto, Producto_carrito 
+from models import Provincias, Suscripcion, Donacion, Detalle, Venta, Vendedor, Despacho
 from flask_cors import CORS, cross_origin
 from logging import exception
-from sqlalchemy.orm import relationship
-
-# Seguridad.
-
-#configurar token de seguridad
-#app.config['TWT_SECRET_KEY'] = 'secret-key'
-#app.config['TWT_SECRET_KEY'] = 'os.enviroment.get("super-secret")'
 
 
-#ruta Login
-"""
-@app.route('/login', methods=['POST'])
-def create_token():
-    email = request.json('email')
-    password = request.json('password')
-    
-    user = Usuario.query.filter_by(Usuario.correo==correo, Usuario.password==password).first()
-    
-    if user == None:
-        return jsonify({
-            'msg': 'ERROR',
-            'message': 'correo o contraseña incorrectos'}), 401
-    
-    access_token = create_access_token(identity=user.email)
-"""    
+   
     
 # 3. instanciamos la app
 app = Flask(__name__)
@@ -234,7 +213,7 @@ def updateProducto(id_producto):
         return jsonify({"msg": "Ha ocurrido un Error"}), 500
 
 #--------------------------------------------------------------------------------
-#Agregar métodos región
+#Agregar regiones
 @app.route('/region', methods=['POST'])
 #@app.jwt_required()
 def addRegiones():
@@ -243,7 +222,8 @@ def addRegiones():
        
         # asignar a variables lo que recibo mediante post
         regionx.id_region = request.json.get('id_region')
-        regionx.nombre = request.json.get('nombre')   
+        regionx.nombre = request.json.get('nombre')
+        regionx.numero= request.json.get('numero')   
         
         Region.save(regionx)
         return jsonify(regionx.serialize()),200
@@ -252,6 +232,23 @@ def addRegiones():
     except Exception:
         exception("[SERVER]: Error ->")
         return jsonify({"msg": "Ha ocurrido un Error"}), 500
+
+#------------------------------------------------------------------
+#para consultar una region  en especifico por ID
+@app.route('/region/<id_region>', methods=['GET'])
+#@app.jwt_required()
+def getRegion(id_region):
+    try:
+        rgx = Region.query.get(id_region)
+                 
+        if not rgx:
+            return jsonify({"msg": "El ID de usuario no existe"}), 200
+        else:
+            return jsonify(rgx.serialize()),200
+    except Exception:
+        exception("[SERVER]: Error ->")
+        return jsonify({"msg": "Ha ocurrido un Error"}), 500
+
 
 #----------------------
 #Consultar todas las regiones
@@ -295,6 +292,7 @@ def updateRegion(id_region):
         rgx = Region.query.get(id_region)
         rgx.id_region = request.query.get('id_region')
         rgx.nombre = request.json.get('nombre')
+        rgx.numero = request.json.get('numero')
         
         Region.save(rgx)
         return jsonify(rgx.serialize()),200
@@ -315,8 +313,8 @@ def addComunas():
         # asignar a variables lo que recibo mediante post
         comu.id_comuna = request.json.get('id_comuna')
         comu.nombre = request.json.get('nombre')   
-        comu.Region_id_region = request.json.get('Region_id_region')
-        Region.save(comu)
+        comu.provincia_id = request.json.get('provincia_id')
+        Comuna.save(comu)
         return jsonify(comu.serialize()),200
         #else:
         #    return jsonify({"msg": "El usuario ya existe"}), 200
@@ -350,7 +348,7 @@ def deleteComuna(id_comuna):
         if not comu:
             return jsonify({"msg": "El ID de comuna no existe"}), 200
         else:
-            Region.delete(comu)
+            Comuna.delete(comu)
             return jsonify(comu.serialize()),200
     except Exception:
         exception("[SERVER]: Error ->")
@@ -365,9 +363,9 @@ def updateComuna(id_comuna):
         comu = Comuna.query.get(id_comuna)
         comu.id_region = request.query.get('id_comuna')
         comu.nombre = request.json.get('nombre')
-        comu.Region_id_region = request.json.get('Region_id_region')
+        comu.provincia_id = request.json.get('provincia_id')
         
-        Region.save(comu)
+        Comuna.save(comu)
         return jsonify(comu.serialize()),200
         
     except Exception:
@@ -786,7 +784,7 @@ def updateProducto_car(id_producto):
 #Crear usuario-Boleta
 
 # 7. Ruta para consultar todos los Usuarios
-@app.route('/usuarios_car', methods=['GET'])
+@app.route('/usuario_car', methods=['GET'])
 #@app.jwt_required()
 def getUsuarios_car():
     try:
@@ -800,14 +798,15 @@ def getUsuarios_car():
         exception ("[SERVER]: Error ->")
         return jsonify({"msg": "Ha ocurrido un ERROR"}), 500
 
-# 12. Ruta para agregar usuario
-@app.route('/usuarios_car', methods=['POST'])
+# 12. Ruta para agregar usuario_car
+@app.route('/usuario_car', methods=['POST'])
 #@app.jwt_required()
 def addUsuario_car():
     try:
         user = Usuario_car()
        
         # asignar a variables lo que recibo mediante post
+        user.id_car = request.json.get('id_car')
         user.correo = request.json.get('correo')
         user.password = request.json.get('password')
         user.estado = request.json.get('estado')    
@@ -829,11 +828,11 @@ def addUsuario_car():
    
 
 # 13. Creamos metodo para consultar un usuario en especifico por ID
-@app.route('/usuarios_car/<id>', methods=['GET'])
+@app.route('/usuario_car/<id_car>', methods=['GET'])
 #@app.jwt_required()
-def getUsuario_car(id):
+def getUsuario_car(id_car):
     try:
-        user = Usuario_car.query.get(id)
+        user = Usuario_car.query.get(id_car)
                  
         if not user:
             return jsonify({"msg": "El ID de usuario no existe"}), 200
@@ -844,12 +843,12 @@ def getUsuario_car(id):
         return jsonify({"msg": "Ha ocurrido un Error"}), 500
 
 
-# 14. Borrar usuario
-@app.route('/usuarios_car/<id>', methods=['DELETE'])
+# 14. Borrar usuario_car
+@app.route('/usuario_car/<id_car>', methods=['DELETE'])
 #@app.jwt_required()
-def deleteUsuario_car(id):
+def deleteUsuario_car(id_car):
     try:
-        user = Usuario_car.query.get(id)
+        user = Usuario_car.query.get(id_car)
         if not user:
             return jsonify({"msg": "El ID de usuario no existe"}), 200
         else:
@@ -859,12 +858,12 @@ def deleteUsuario_car(id):
         exception("[SERVER]: Error ->")
         return jsonify({"msg": "Ha ocurrido un Error"}), 500
         
-# 15. Modificar Usuario
-@app.route('/usuarios_car/<id>', methods=['PUT'])
+# 15. Modificar Usuario_car
+@app.route('/usuario_car/<id_car>', methods=['PUT'])
 #@app.jwt_required()
-def updateUsuario_car(id):
+def updateUsuario_car(id_car):
     try:
-        user = Usuario_car.query.get(id)
+        user = Usuario_car.query.get(id_car)
         user.correo = request.json.get('correo')
         user.password = request.json.get('password')
         user.estado = request.json.get('estado')
@@ -892,4 +891,4 @@ def updateUsuario_car(id):
 
 # 4. Configurar los puertos nuestra app 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=4000, debug=True)
