@@ -11,7 +11,9 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
      <!--- Mis estilos -->
      <link rel="stylesheet" href="assets/css/style.css">
-  </head>
+    
+      
+    </head>
  <body>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
@@ -165,24 +167,12 @@
 
 
 
-
-
-
-
-
-
-
-
   <!--- script-->
    
     <script>
      
       const API_URL = 'http://127.0.0.1:5000/';
-
-
         
-
-
       $(document).ready(function(){
         $('#boleta tbody , #datos tbody , #total tbody').empty();
         actualizarTabla()
@@ -265,8 +255,7 @@
                     '<td>' + respuesta[i].direccion + '</td>' +
                     '<td>' + respuesta[i].comuna + '</td>' +
                     '<td>' + respuesta[i].correo + '</td>' +
-                    
-                    
+                                        
                     '<td>' +
                     '</td>' +
                   '</tr>';
