@@ -100,6 +100,50 @@ class Usuario_car(db.Model):
             "comuna": self.comuna_id
         }
     
+       
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+    
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+class Registro(db.Model):
+    __tablename__ = 'Registro'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    correo = db.Column(db.String(250), nullable= False)
+    password = db.Column(db.String(250), nullable= True)
+    estado = db.Column(db.Integer, nullable= False)
+    primer_nombre = db.Column(db.String(250), nullable= False)
+    primer_apellido = db.Column(db.String(250), nullable= False)
+    
+    
+
+    def __str__(self):
+        return "\nid_registro: {}. correo {}. password {}. Estado {}. primer Nombre: {}.  primer apellido: {}. \n".format(
+            self.id,
+            self.correo,
+            self.password,
+            self.estado,
+            self.primer_nombre,
+            self.primer_apellido,
+            
+        )
+    def serialize(self):
+        return{
+            "id_registro": self.id,
+            "correo":self.correo,
+            "password":self.password,
+            "estado":self.estado,
+            "primer_nombre": self.primer_nombre,
+            "primer_apellido": self.primer_apellido
+            
+        }
+    
     
     def save(self):
         db.session.add(self)

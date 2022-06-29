@@ -9,6 +9,7 @@ from flask_migrate import Migrate
 from sqlalchemy import desc
 from models import db, Usuario, Usuario_car, Region, Comuna, Descuento, Descuento_producto, Producto, Producto_carrito 
 from models import Provincias, Suscripcion, Donacion, Detalle, Venta, Vendedor, Despacho
+from models import Registro
 from flask_cors import CORS, cross_origin
 from logging import exception
 
@@ -881,7 +882,48 @@ def updateUsuario_car(id_car):
         exception("[SERVER]: Error ->")
         return jsonify({"msg": "Ha ocurrido un Error"}), 500
 
+# -----------------------------------------------------------------------
+# -----------------------------------------------------------------------
+# Agregar usuario al registro.
+#-----------------------------------------------------------------------
+# 12. Ruta para agregar usuario_car
+@app.route('/registro', methods=['POST'])
+#@app.jwt_required()
+def addRegistro_u():
+    try:
+        user = Registro() 
 
+        # asignar a variables lo que recibo mediante post
+        user.id = request.json.get('id')
+        user.correo = request.json.get('correo')
+        user.password = request.json.get('password')
+        user.estado = request.json.get('estado')    
+        user.primer_nombre = request.json.get('primer_nombre')
+        user.primer_apellido = request.json.get('primer_apellido')
+                
+        #if not user:
+        Registro.save(user)
+        return jsonify(user.serialize()),200
+        #else:
+        #    return jsonify({"msg": "El usuario ya existe"}), 200
+    except Exception:
+        exception("[SERVER]: Error ->")
+        return jsonify({"msg": "Ha ocurrido un Error"}), 500
+
+# 13. Creamos metodo para consultar un registro en especifico por ID
+@app.route('/registro/<id>', methods=['GET'])
+#@app.jwt_required()
+def getRegistro_u(id):
+    try:
+        user = Registro.query.get(id)
+                 
+        if not user:
+            return jsonify({"msg": "El Registro no existe"}), 200
+        else:
+            return jsonify(user.serialize()),200
+    except Exception:
+        exception("[SERVER]: Error ->")
+        return jsonify({"msg": "Ha ocurrido un Error"}), 500
 
 
 # 8. comando para iniciar mi app flask: flask db init
@@ -891,4 +933,6 @@ def updateUsuario_car(id_car):
 
 # 4. Configurar los puertos nuestra app 
 if __name__ == '__main__':
-    app.run(port=4000, debug=True)
+    app.run(port=5000, debug=True)
+
+
