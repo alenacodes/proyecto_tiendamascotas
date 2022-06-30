@@ -434,4 +434,9 @@ INSERT INTO Productos (id, codigo, nombre, valor_venta, stock, descripcion, imag
 (8, 'DRESS-008', 'Vestido 8', '14000', '10', 'Descripción del producto 8', '../assets/img/ecommerce/balmain_8.jpg', '1'),
 (9, 'DRESS-009', 'Vestido 9', '15000', '10', 'Descripción del producto 9', '../assets/img/ecommerce/balmain_9.jpg', '1');
 
+
+INSERT INTO `Producto` (`id_producto`, `codigo`, `nombre`,`valor_venta`, `stock`, `descripcion`, `imagen`,`estado` ) VALUES
+(1, 'SKU01', 'PAWISE - CAMA 3 EN 1 PAWIS', 32900, 100, 'Medidas 48 x 41 x 14 cm', 'img-carrito/pawise-cama-3-en-1.jpg','A');
+
+
 DELETE FROM Productos WHERE id > 0;

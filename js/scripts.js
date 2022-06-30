@@ -143,6 +143,7 @@ window.onload = function(){
 let loginForm = document.querySelector('.header .login-form');
 
 document.querySelector('#login-btn').onclick = () =>{
+//  document.querySelector('#login-btn').onload = () =>{
     loginForm.classList.toggle('active');
     navbar.classList.remove('active');
 }
@@ -150,6 +151,7 @@ document.querySelector('#login-btn').onclick = () =>{
 let navbar = document.querySelector('.header .navbar');
 
 document.querySelector('#menu-btn').onclick = () =>{
+//  document.querySelector('#menu-btn').onload = () =>{
     navbar.classList.toggle('active');    
     loginForm.classList.remove('active');
 }

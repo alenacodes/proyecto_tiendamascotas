@@ -21,12 +21,12 @@
   <section class="form-register" id="Registro">
     <h4>¡Regístrate!</h4>
     
-    <input type="text" class="form-control"  id="Inputnombres" placeholder="Ingrese su Nombre">
-    <input class="form-control" type="text" id="Inputapellidos" placeholder="Ingrese su Primer Apellido">
-    <input class="form-control" type="email"  id="Inputcorreo" placeholder="Ingrese su Correo">
-    <input class="form-control" type="password" id="Inputpassword" placeholder="Ingrese su Contraseña">
+    <input type="text" class="controls"  id="inputNombres" placeholder="Ingrese su Nombre">
+    <input class="controls" type="text" id="inputApellidos" placeholder="Ingrese su Primer Apellido">
+    <input class="controls" type="email"  id="inputCorreo" placeholder="Ingrese su Correo">
+    <input class="controls" type="password" id="inputPassword" placeholder="Ingrese su Contraseña">
     <p>Estoy de acuerdo con <a href="#">Términos y Condiciones</a></p>
-    <a id="btnRegistrarUsuario" class="btn btn-primary">Registrar</a>
+    <a id="btnRegistrarUsuario" class="btn btn-primary" type="submit">Registrar</a>
     <!-- 
     <input class="button" type="submit"  id="btnRegistrarUsuario">
     -->
@@ -51,13 +51,13 @@
     $(document).on('click', '#btnRegistrarUsuario', function(){
       //obtener los datos del usuario
       
-      var nombres = $('#Inputnombres').val();
-      var apellidos = $('#Inputapellidos').val();
-      var correo = $('#Inputcorreo').val();
-      var password = $('#Inputpassword').val();
+      var nombres = $('#inputNombres').val();
+      var apellidos = $('#inputApellidos').val();
+      var correo = $('#inputCorreo').val();
+      var password = $('#inputPassword').val();
       var estado = 1;  //1 = activo, 0 = inactivo
-      var id = 1;
-      console.log(nombres, apellidos, correo, password, estado, id);
+      
+      console.log(nombres, apellidos, correo, password, estado);
       //cargar los datos mediante ajax
       $.ajax({
         url: API_URL+'registro', 
@@ -73,18 +73,19 @@
           
         }),
         success: function(respuesta) {
-          console.log(respuesta); 
+          console.log(respuesta);
+          
          }
       })
     
     });
     
     function limpiarFormulario(){
-      $('#inputnombres').val('');
-      $('#inputapellidos').val('');
-      $('#Inputcorreo').val('');
-      $('#inputApellidoMaterno').val('');
-      $('#Inputpassword').val('');
+      $('#inputNombres').val('');
+      $('#inputApellidos').val('');
+      $('#inputCorreo').val('');
+      //$('#inputApellidoMaterno').val('');
+      $('#inputPassword').val('');
       /*
 
       $('#btnAgregarUsuario').show();

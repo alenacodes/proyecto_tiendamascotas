@@ -345,7 +345,7 @@ class Descuento_producto (db.Model):
 #Creación tabla Producto
 class Producto (db.Model):
     __tablename__ = 'producto'
-    id_producto = db.Column(db.Integer, primary_key=True)
+    id_producto = db.Column(db.Integer, primary_key=True, autoincrement=True)
     codigo = db.Column(db.String(250), nullable = False )
     nombre = db.Column(db.String(250), nullable = False )
     valor_venta = db.Column(db.Integer, nullable = False )
