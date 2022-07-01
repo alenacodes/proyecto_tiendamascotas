@@ -424,19 +424,14 @@ INSERT INTO `Comuna` (`id_comuna`, `nombre`, `provincia_id`) VALUES
 
 
 INSERT INTO Productos (id, codigo, nombre, valor_venta, stock, descripcion, imagen, estado) VALUES
-(1, 'DRESS-001', 'Vestido 1', '10000', '10', 'Descripción del producto 1', '../assets/img/ecommerce/balmain_1.jpg', '1'),
-(2, 'DRESS-002', 'Vestido 2', '15000', '10', 'Descripción del producto 2', '../assets/img/ecommerce/balmain_2.jpg', '1'),
-(3, 'DRESS-003', 'Vestido 3', '20000', '10', 'Descripción del producto 3', '../assets/img/ecommerce/balmain_3.jpg', '1'),
-(4, 'DRESS-004', 'Vestido 4', '25000', '10', 'Descripción del producto 4', '../assets/img/ecommerce/balmain_4.jpg', '1'),
-(5, 'DRESS-005', 'Vestido 5', '30000', '10', 'Descripción del producto 5', '../assets/img/ecommerce/balmain_5.jpg', '1'),
-(6, 'DRESS-006', 'Vestido 6', '12000', '10', 'Descripción del producto 6', '../assets/img/ecommerce/balmain_6.jpg', '1'),
-(7, 'DRESS-007', 'Vestido 7', '13000', '10', 'Descripción del producto 7', '../assets/img/ecommerce/balmain_7.jpg', '1'),
-(8, 'DRESS-008', 'Vestido 8', '14000', '10', 'Descripción del producto 8', '../assets/img/ecommerce/balmain_8.jpg', '1'),
-(9, 'DRESS-009', 'Vestido 9', '15000', '10', 'Descripción del producto 9', '../assets/img/ecommerce/balmain_9.jpg', '1');
-
-
-INSERT INTO `Producto` (`id_producto`, `codigo`, `nombre`,`valor_venta`, `stock`, `descripcion`, `imagen`,`estado` ) VALUES
-(1, 'SKU01', 'PAWISE - CAMA 3 EN 1 PAWIS', 32900, 100, 'Medidas 48 x 41 x 14 cm', 'img-carrito/pawise-cama-3-en-1.jpg','A');
+(1, 'SKU01', 'PAWISE - CAMA 3 EN 1 PAWIS', '32900', '100', 'Medidas 48 x 41 x 14 cm', 'img-carrito/pawise-cama-3-en-1.jpg', 'A'),
+(2, 'SKU02', 'CATIT BOLA PARA GOLOSINAS', '6500', '100', 'El espacio destinado a meter las golosinas también puede ser cerrado en una pelota sencilla.', 'img-carrito/catit-bola-para-golosinas.jpg', 'A'),
+(3, 'SKU03', 'CATIT RASGUÑADOR TIGRE BLANCO', '11500', '100', 'Incluye Catnip estimulante para gatos    Medidas: Largo 48 cm- Ancho 21 cm- Alto 8cm', 'img-carrito/catit-rasguñador-tigre-blanco.jpg', 'A'),
+(4, 'SKU04', 'ARENERO CATIT', '18000', '100', 'Arenero sanitario para gatos.', 'img-carrito/arenero.jpg', 'A'),
+(5, 'SKU05', 'Jaula hamster 3 pisos + tubos', '25000', '100', 'Disponibilidad de color según stock.', 'img-carrito/jaula hamster.jpg', 'A'),
+(6, 'SKU06', 'Jaula de trasnporte perro', '75000', '100', 'jaula para transporte canino', 'img-carrito/dogit-jaula-de-transporte-voyageur-small.jpg', 'A'),
+(7, 'SKU07', 'dogit dreamwell cama rectangular', '35000', '100', 'cama para perrito', 'img-carrito/dogit-dreamwell-cama-rectangular.jpg', 'A'),
+(8, 'SKU08', 'dogit plato perros ansiosos', '15000', '100', 'plato para comida de perro', 'img-carrito/dogit-plato-perros-ansiosos.jpg', 'A')
 
 
 DELETE FROM Productos WHERE id > 0;
