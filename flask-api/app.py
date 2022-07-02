@@ -9,7 +9,7 @@ from flask_migrate import Migrate
 from sqlalchemy import desc
 from models import db, Usuario, Usuario_car, Region, Comuna, Descuento, Descuento_producto, Producto, Producto_carrito 
 from models import Provincias, Suscripcion, Donacion, Detalle, Venta, Vendedor, Despacho
-from models import Registro
+
 from flask_cors import CORS, cross_origin
 from logging import exception
 
@@ -65,10 +65,11 @@ def addUsuario():
         user.estado = request.json.get('estado')    
         user.primer_nombre = request.json.get('primer_nombre')
         user.segundo_nombre = request.json.get('segundo_nombre')
-        user.apellido_paterno = request.json.get('apellido_paterno')
-        user.apellido_materno = request.json.get('apellido_materno')
+        user.apellido_paterno = request.json.get('primer_apellido')
+        user.apellido_materno = request.json.get('segundo_apellido')
         user.direccion = request.json.get('direccion')
-        user.comuna_id = request.json.get('comuna_id')
+        user.comuna_id = request.json.get('comuna')
+        user.fono = request.json.get('fono')
         #if not user:
         Usuario.save(user)
         return jsonify(user.serialize()),200
@@ -119,13 +120,14 @@ def updateUsuario(id):
         user = Usuario.query.get(id)
         user.correo = request.json.get('correo')
         user.password = request.json.get('password')
-        user.estado = request.json.get('estado')
+        user.estado = request.json.get('estado')    
         user.primer_nombre = request.json.get('primer_nombre')
         user.segundo_nombre = request.json.get('segundo_nombre')
-        user.apellido_paterno = request.json.get('apellido_paterno')
-        user.apellido_materno = request.json.get('apellido_materno')
+        user.apellido_paterno = request.json.get('primer_apellido')
+        user.apellido_materno = request.json.get('segundo_apellido')
         user.direccion = request.json.get('direccion')
-        user.comuna_id = request.json.get('comuna_id')
+        user.comuna_id = request.json.get('comuna')
+        user.fono = request.json.get('fono')
         
         Usuario.save(user)
         return jsonify(user.serialize()),200
@@ -813,10 +815,11 @@ def addUsuario_car():
         user.estado = request.json.get('estado')    
         user.primer_nombre = request.json.get('primer_nombre')
         user.segundo_nombre = request.json.get('segundo_nombre')
-        user.apellido_paterno = request.json.get('apellido_paterno')
-        user.apellido_materno = request.json.get('apellido_materno')
+        user.apellido_paterno = request.json.get('primer_apellido')
+        user.apellido_materno = request.json.get('segundo_apellido')
         user.direccion = request.json.get('direccion')
-        user.comuna_id = request.json.get('comuna_id')
+        user.comuna_id = request.json.get('comuna')
+        user.fono = request.json.get('fono')
         #if not user:
         Usuario_car.save(user)
         return jsonify(user.serialize()),200
@@ -867,13 +870,14 @@ def updateUsuario_car(id_car):
         user = Usuario_car.query.get(id_car)
         user.correo = request.json.get('correo')
         user.password = request.json.get('password')
-        user.estado = request.json.get('estado')
+        user.estado = request.json.get('estado')    
         user.primer_nombre = request.json.get('primer_nombre')
         user.segundo_nombre = request.json.get('segundo_nombre')
-        user.apellido_paterno = request.json.get('apellido_paterno')
-        user.apellido_materno = request.json.get('apellido_materno')
+        user.apellido_paterno = request.json.get('primer_apellido')
+        user.apellido_materno = request.json.get('segundo_apellido')
         user.direccion = request.json.get('direccion')
-        user.comuna_id = request.json.get('comuna_id')
+        user.comuna_id = request.json.get('comuna')
+        user.fono = request.json.get('fono')
         
         Usuario_car.save(user)
         return jsonify(user.serialize()),200
@@ -886,45 +890,22 @@ def updateUsuario_car(id_car):
 # -----------------------------------------------------------------------
 # Agregar usuario al registro.
 #-----------------------------------------------------------------------
-# 12. Ruta para agregar usuario_car
-@app.route('/registro', methods=['POST'])
+
+#---------------------------------------------------------------
+#Consultar todas las Comunas
+@app.route('/comunas', methods=['GET'])
 #@app.jwt_required()
-def addRegistro_u():
+def getComunas():
     try:
-        user = Registro() 
-
-        # asignar a variables lo que recibo mediante post
-        user.id = request.json.get('id')
-        user.correo = request.json.get('correo')
-        user.password = request.json.get('password')
-        user.estado = request.json.get('estado')    
-        user.primer_nombre = request.json.get('primer_nombre')
-        user.primer_apellido = request.json.get('primer_apellido')
-                
-        #if not user:
-        Registro.save(user)
-        return jsonify(user.serialize()),200
-        #else:
-        #    return jsonify({"msg": "El usuario ya existe"}), 200
+        
+        comu = Comuna.query.all()
+        #user = list(map(lambda x: x.serialize(), user))
+        toreturn = [usi.serialize() for usi in comu]
+        
+        return jsonify(toreturn),200 # Es ok y codifica a tipo Json
     except Exception:
-        exception("[SERVER]: Error ->")
-        return jsonify({"msg": "Ha ocurrido un Error"}), 500
-
-# 13. Creamos metodo para consultar un registro en especifico por ID
-@app.route('/registro/<id>', methods=['GET'])
-#@app.jwt_required()
-def getRegistro_u(id):
-    try:
-        user = Registro.query.get(id)
-                 
-        if not user:
-            return jsonify({"msg": "El Registro no existe"}), 200
-        else:
-            return jsonify(user.serialize()),200
-    except Exception:
-        exception("[SERVER]: Error ->")
-        return jsonify({"msg": "Ha ocurrido un Error"}), 500
-
+        exception ("[SERVER]: Error ->")
+        return jsonify({"msg": "Ha ocurrido un ERROR"}), 500
 
 # 8. comando para iniciar mi app flask: flask db init
 # 9. comando para migrar mis modelos:   flask db migrate

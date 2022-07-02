@@ -28,16 +28,16 @@
 
     <form action="" class="login-form">
         <h3>Login</h3>
-        <input type="email" name="" placeholder="Ingresa tu correo" id="" class="box">
-        <input type="password" name="" placeholder="Ingresa tu contraseña" id="" class="box">
+        <input type="email" name="" placeholder="Ingresa tu correo" id="inputLogincorreo" class="box">
+        <input type="password" name="" placeholder="Ingresa tu contraseña" id="inputLoginPass" class="box">
         <div class="remember">
-            <input type="checkbox" name="" id="remember-me">
+            <input type="checkbox" name="" id="remember-me" id="recuerdame">
             <label for="remember-me">Recuérdame</label>
         </div>
         <input type="submit" value="Iniciar sesión" class="btn">
         <div class="links">
             <a href="#">¿Olvidaste tu contraseña?</a>
-            <a href="#">Registrarse</a>
+            <a href="registro.html">Registrarse</a>
         </div>
     </form>
 </header>
@@ -206,11 +206,11 @@
 
     <form action="">
         <h3>Contáctanos</h3>
-        <input type="text" placeholder="tu nombre" class="box">
-        <input type="email" placeholder="tu correo" class="box">
-        <input type="tumber" placeholder="tu número de contacto" class="box">
+        <input type="text" placeholder="tu nombre" class="box" id="inputNombreContacto">
+        <input type="email" placeholder="tu correo" class="box" id="inputCorreoContacto">
+        <input type="tumber" placeholder="tu número de contacto" class="box" id="inputNumeroContacto">
         <textarea name="" placeholder="déjanos un mensaje" id="" cols="30" rows="10"></textarea>
-        <input type="submit" value="enviar mensaje" class="btn">
+        <input type="submit" value="enviar mensaje" class="btn" id="botonEnviarContacto">
     </form>
 
 </section>
@@ -220,12 +220,17 @@
     <img src="image/top_wave.png" alt="">
 
     <div class="share">
-        <a href="#" class="btn"> <i class="fab fa-facebook-f"></i> Facebook </a>
-        <a href="#" class="btn"> <i class="fab fa-twitter"></i> Twitter </a>
-        <a href="#" class="btn"> <i class="fab fa-instagram"></i> Instagram </a>
+        <a href="https://es-la.facebook.com/" class="btn"> <i class="fab fa-facebook-f"></i> Facebook </a>
+        <a href="https://twitter.com/" class="btn"> <i class="fab fa-twitter"></i> Twitter </a>
+        <a href="https://www.instagram.com/" class="btn"> <i class="fab fa-instagram"></i> Instagram </a>
     </div>
     <div class="credit"> created by <span> Camila, Mauricio y Manuel </span></div>
 </section>
-<script src="js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+  
+    <script src="js/script.js"></script>
+
 </body>
 </html>

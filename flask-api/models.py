@@ -19,9 +19,10 @@ class Usuario(db.Model):
     apellido_materno = db.Column(db.String(250))
     direccion = db.Column(db.String(250), nullable= False)
     comuna_id = db.Column(db.Integer, db.ForeignKey('Comuna.id_comuna'))
+    fono = db.Column(db.Integer, nullable= False)
 
     def __str__(self):
-        return "\nID: {}. Correo {}. Password {}. Estado {}. Primer Nombre: {}. Segundo Nombre: {}. Apellido Paterno: {}. Apellido Materno: {}. Dirección: {}.\n".format(
+        return "\nID: {}. Correo {}. Password {}. Estado {}. Primer Nombre: {}. Segundo Nombre: {}. Apellido Paterno: {}. Apellido Materno: {}. Dirección: {}. comuna id: {}. Fono: {}\n".format(
             self.id,
             self.correo,
             self.password,
@@ -31,7 +32,8 @@ class Usuario(db.Model):
             self.apellido_paterno,
             self.apellido_materno,
             self.direccion,
-            self.comuna_id
+            self.comuna_id,
+            self.fono
         )
     def serialize(self):
         return{
@@ -44,7 +46,8 @@ class Usuario(db.Model):
             "apellido_paterno": self.apellido_paterno,
             "apellido_materno": self.apellido_materno,
             "direccion": self.direccion,
-            "comuna": self.comuna_id
+            "comuna": self.comuna_id,
+            "fono": self.fono
         }
     
     
@@ -72,9 +75,10 @@ class Usuario_car(db.Model):
     apellido_materno = db.Column(db.String(250))
     direccion = db.Column(db.String(250), nullable= False)
     comuna_id = db.Column(db.Integer, nullable=False)
+    fono = db.Column(db.Integer, nullable= False)
 
     def __str__(self):
-        return "\nID: {}. Correo {}. Password {}. Estado {}. Primer Nombre: {}. Segundo Nombre: {}. Apellido Paterno: {}. Apellido Materno: {}. Dirección: {}.\n".format(
+        return "\nid: {}. correo {}. password {}. estado {}. primer Nombre: {}. segundo Nombre: {}. apellido_paterno: {}. apellido_materno: {}. direccion: {}. comuna_id: {}. fono: {}\n".format(
             self.id_car,
             self.correo,
             self.password,
@@ -84,7 +88,8 @@ class Usuario_car(db.Model):
             self.apellido_paterno,
             self.apellido_materno,
             self.direccion,
-            self.comuna_id
+            self.comuna_id,
+            self.fono
         )
     def serialize(self):
         return{
@@ -97,54 +102,11 @@ class Usuario_car(db.Model):
             "apellido_paterno": self.apellido_paterno,
             "apellido_materno": self.apellido_materno,
             "direccion": self.direccion,
-            "comuna": self.comuna_id
+            "comuna": self.comuna_id,
+            "fono": self.fono
         }
     
        
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-    
-    def update(self):
-        db.session.commit()
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-
-class Registro(db.Model):
-    __tablename__ = 'Registro'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    correo = db.Column(db.String(250), nullable= False)
-    password = db.Column(db.String(250), nullable= True)
-    estado = db.Column(db.Integer, nullable= False)
-    primer_nombre = db.Column(db.String(250), nullable= False)
-    primer_apellido = db.Column(db.String(250), nullable= False)
-    
-    
-
-    def __str__(self):
-        return "\nid_registro: {}. correo {}. password {}. Estado {}. primer Nombre: {}.  primer apellido: {}. \n".format(
-            self.id,
-            self.correo,
-            self.password,
-            self.estado,
-            self.primer_nombre,
-            self.primer_apellido,
-            
-        )
-    def serialize(self):
-        return{
-            "id_registro": self.id,
-            "correo":self.correo,
-            "password":self.password,
-            "estado":self.estado,
-            "primer_nombre": self.primer_nombre,
-            "primer_apellido": self.primer_apellido
-            
-        }
-    
-    
     def save(self):
         db.session.add(self)
         db.session.commit()
@@ -345,8 +307,8 @@ class Descuento_producto (db.Model):
 #Creación tabla Producto
 class Producto (db.Model):
     __tablename__ = 'producto'
-    id_producto = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    codigo = db.Column(db.String(250), nullable = False )
+    id_producto = db.Column(db.Integer, primary_key=True, nullable = False)
+    codigo = db.Column(db.String(250), nullable = False ) #SKU
     nombre = db.Column(db.String(250), nullable = False )
     valor_venta = db.Column(db.Integer, nullable = False )
     stock = db.Column(db.Integer)

@@ -1,3 +1,5 @@
+
+
 let loginForm = document.querySelector('.header .login-form');
 
 document.querySelector('#login-btn').onclick = () =>{
@@ -30,3 +32,9 @@ window.onload = () =>{
         document.querySelector('.header').classList.remove('active');
     }
 }
+
+$(document).on('click', '#botonEnviarContacto', function(){
+    
+    alert('¡Mensaje enviado!, estimado/a  pronto nos comunicaremos con usted');
+
+});

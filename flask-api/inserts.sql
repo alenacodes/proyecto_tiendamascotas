@@ -423,15 +423,17 @@ INSERT INTO `Comuna` (`id_comuna`, `nombre`, `provincia_id`) VALUES
 (346, 'Torres del Paine', 56);
 
 
-INSERT INTO Productos (id, codigo, nombre, valor_venta, stock, descripcion, imagen, estado) VALUES
-(1, 'SKU01', 'PAWISE - CAMA 3 EN 1 PAWIS', '32900', '100', 'Medidas 48 x 41 x 14 cm', 'img-carrito/pawise-cama-3-en-1.jpg', 'A'),
-(2, 'SKU02', 'CATIT BOLA PARA GOLOSINAS', '6500', '100', 'El espacio destinado a meter las golosinas también puede ser cerrado en una pelota sencilla.', 'img-carrito/catit-bola-para-golosinas.jpg', 'A'),
-(3, 'SKU03', 'CATIT RASGUÑADOR TIGRE BLANCO', '11500', '100', 'Incluye Catnip estimulante para gatos    Medidas: Largo 48 cm- Ancho 21 cm- Alto 8cm', 'img-carrito/catit-rasguñador-tigre-blanco.jpg', 'A'),
-(4, 'SKU04', 'ARENERO CATIT', '18000', '100', 'Arenero sanitario para gatos.', 'img-carrito/arenero.jpg', 'A'),
-(5, 'SKU05', 'Jaula hamster 3 pisos + tubos', '25000', '100', 'Disponibilidad de color según stock.', 'img-carrito/jaula hamster.jpg', 'A'),
-(6, 'SKU06', 'Jaula de trasnporte perro', '75000', '100', 'jaula para transporte canino', 'img-carrito/dogit-jaula-de-transporte-voyageur-small.jpg', 'A'),
-(7, 'SKU07', 'dogit dreamwell cama rectangular', '35000', '100', 'cama para perrito', 'img-carrito/dogit-dreamwell-cama-rectangular.jpg', 'A'),
-(8, 'SKU08', 'dogit plato perros ansiosos', '15000', '100', 'plato para comida de perro', 'img-carrito/dogit-plato-perros-ansiosos.jpg', 'A')
+
+
+INSERT INTO `Producto` (`id_producto`, `codigo`, `nombre`,`valor_venta`, `stock`, `descripcion`, `imagen`,`estado` ) VALUES
+(1, 'SKU01', 'PAWISE - CAMA 3 EN 1 PAWIS', 32900, 100, 'Medidas 48 x 41 x 14 cm', 'img-carrito/pawise-cama-3-en-1.jpg','A'),
+(2, 'SKU02', 'CATIT BOLA PARA GOLOSINAS', 6500, 100, 'El espacio destinado a meter las golosinas también puede ser cerrado en una pelota sencilla.', 'img-carrito/catit-bola-para-golosinas.jpg','A'),
+(3, 'SKU03', 'CATIT RASGUÑADOR TIGRE BLANCO', 11500, 100, 'Incluye Catnip estimulante para gatos    Medidas: Largo 48 cm- Ancho 21 cm- Alto 8cm', 'img-carrito/catit-rasguñador-tigre-blanco.jpg','A'),
+(4, 'SKU04', 'ARENERO CATIT', 18000, 100, 'Arenero sanitario para gatos.', 'img-carrito/arenero.jpg','A'),
+(5, 'SKU05', 'Jaula hamster 3 pisos + tubos', 25000, 100, 'Disponibilidad de color según stock.', 'img-carrito/jaula hamster.jpg','A'),
+(6, 'SKU06', 'Jaula de transporte perro', 75000, 100, 'jaula para transporte canino', 'img-carrito/dogit-jaula-de-transporte-voyageur-small.jpg','A'),
+(7, 'SKU07', 'dogit dreamwell cama rectangular', 35000, 100, 'cama para perrito', 'img-carrito/dogit-dreamwell-cama-rectangular.jpg','A'),
+(8, 'SKU08', 'dogit plato perros ansiosos', 15000, 100, 'plato para comida de perro', 'img-carrito/dogit-plato-perros-ansiosos.jpg','A');
 
 
 DELETE FROM Productos WHERE id > 0;
