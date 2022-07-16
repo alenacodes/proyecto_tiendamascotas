@@ -2,6 +2,7 @@ const Clickbutton = document.querySelectorAll('.button')
 const tbody = document.querySelector('.tbody')
 let carrito = []
 
+
 Clickbutton.forEach(btn => {
   btn.addEventListener('click', addToCarritoItem)
 })
@@ -13,11 +14,20 @@ function addToCarritoItem(e){
   const itemTitle = item.querySelector('.card-title').textContent;
   const itemPrice = item.querySelector('.precio').textContent;
   const itemImg = item.querySelector('.card-img-top').src;
+  const itemCodigo = item.querySelector('.card-codigo').textContent;
+  const itemId = item.querySelector('.card-id').textContent;
+  const desCrip = item.querySelector('.card-text').textContent;
+  //const estaDo = item.querySelector('.card-estado').textContent;
+  const estaDo = "A";
   
   const newItem = {
     title: itemTitle,
     precio: itemPrice,
     img: itemImg,
+    sku: itemCodigo,
+    id: itemId,
+    descripcion: desCrip,
+    estado: estaDo,
     cantidad: 1
   }
 
@@ -60,12 +70,17 @@ function renderCarrito(){
     
     <th scope="row">1</th>
             <td class="table__productos">
-              <img src=${item.img}  alt="">
-              <h6 class="title">${item.title}</h6>
+              <img src=${item.img}  alt="" id="imgItemProducto"> 
+              <h6 class="title" id="nombreItemProducto">${item.title}</h6>
+              <h6 class="skuItem" id="codigoItemProducto" hidden>Codigo: ${item.sku}</h6>
+              <h6 class="itemID" id="idProducto" hidden>ID: ${item.id}</h6>
+              <h6 class="itemEstado" id="estadoProducto" hidden>Estado: ${item.estado}</h6>            
             </td>
-            <td class="table__price"><p>${item.precio}</p></td>
+            <td><h6 class="itemDescripcion" id="descripcionProducto" hidden>${item.descripcion}</h6></td>
+
+            <td class="table__price" id="precioItemProducto"><p>${item.precio}</p></td>
             <td class="table__cantidad">
-              <input type="number" min="1" value=${item.cantidad} class="input__elemento">
+              <input type="number" min="1" value=${item.cantidad} class="input__elemento" id="CantidadItemProducto">
               <button class="delete btn btn-danger">x</button>
             </td>
     
@@ -77,6 +92,7 @@ function renderCarrito(){
     tr.querySelector(".input__elemento").addEventListener('change', sumaCantidad)
   })
   CarritoTotal()
+  
 }
 
 function CarritoTotal(){
@@ -122,12 +138,14 @@ function sumaCantidad(e){
       sumaInput.value < 1 ?  (sumaInput.value = 1) : sumaInput.value;
       item.cantidad = sumaInput.value;
       CarritoTotal()
+      
     }
   })
 }
 
 function addLocalStorage(){
   localStorage.setItem('carrito', JSON.stringify(carrito))
+  console.log(carrito);
 }
 
 window.onload = function(){
@@ -135,6 +153,7 @@ window.onload = function(){
   if(storage){
     carrito = storage;
     renderCarrito()
+    //enviarProductoCarrito()
   }
 }
 
@@ -159,7 +178,7 @@ document.querySelector('#menu-btn').onclick = () =>{
 window.onscroll = () =>{
     loginForm.classList.remove('active');
     navbar.classList.remove('active');
-
+  
     if(window.scrollY > 0){
         document.querySelector('.header').classList.add('active');
     }else{
@@ -174,3 +193,67 @@ window.onload = () =>{
         document.querySelector('.header').classList.remove('active');
     }
 }
+
+//document.querySelector('.ItemCarrito').addEventListener('change', enviarProductoCarrito);
+// Función para enviar los productos a la tabla carrito de compras.
+function enviarProductoCarrito(){
+  //let Total = 0;
+  let cantidad = 0;
+  let monto = 0;
+  let titulo = '';
+  let foto = '';
+  let codigo = '';
+  let ID = 0;
+  let est = '';
+  let desc = '';
+  //let precio = 0;
+  
+      carrito.forEach((item) => {
+        const API_URL = 'http://127.0.0.1:5000';
+        cantidad = Number(item.cantidad)
+        monto = Number(item.precio)
+        ID = Number(item.id)
+        est = item.estado
+        desc = String(item.descripcion)
+        foto = item.img
+        titulo = item.title
+        codigo = item.sku
+       
+        //})
+        //Total = Total + precio*item.cantidad
+        //console.log(cantidad, monto, titulo, foto, codigo, ID, est, desc);
+        $.ajax({
+          url: API_URL+'/producto_car',
+          type: 'POST',
+          //contentype: 'application/json',
+          datatype: 'json',
+          data: {
+            id_producto: ID,
+            codigo: codigo,
+            nombre: titulo,
+            valor_venta: monto,
+            stock: cantidad,
+            descripcion: desc,
+            imagen: foto,
+            estado: est
+            
+          },
+          success: function(response){
+            console.log(response);
+          }
+        })
+      })
+      }
+
+
+    
+  
+  
+
+  
+
+
+  
+  
+
+
