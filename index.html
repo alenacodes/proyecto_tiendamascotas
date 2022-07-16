@@ -14,30 +14,32 @@
     <nav class="navbar">
         <a href="#home">Inicio</a>
         <a href="#about">Nosotros</a>
-        <a href="#shop">Tienda</a>
-        <a href="#services">Servicios</a>
-        <a href="#plan">Plan</a>
+        <a href="index_carrito.html">Tienda</a>
         <a href="#contact">Contacto</a>
     </nav>
 
+    <div id="tipoUsuario" onload="">
+        <h2 class="badge-info" id="usuario">¡Hola Invitado!</h2>
+    </div>
+
     <div class="icons">
         <div class="fas fa-bars" id="menu-btn"></div>
-        <a href="#" class="fas fa-shopping-cart"></a>
         <div class="fas fa-user" id="login-btn"></div>
     </div>
 
     <form action="" class="login-form">
         <h3>Login</h3>
-        <input type="email" name="" placeholder="Ingresa tu correo" id="inputLogincorreo" class="box">
-        <input type="password" name="" placeholder="Ingresa tu contraseña" id="inputLoginPass" class="box">
-        <div class="remember">
-            <input type="checkbox" name="" id="remember-me" id="recuerdame">
+        <input type="email" name="" placeholder="Ingresa tu correo" id="correoUsuario"class="box">
+        <input type="password" name="" placeholder="Ingresa tu contraseña" id="contraseña" class="box">
+        <!--<div class="remember">
+            <input type="checkbox" name="" id="remember-me">
             <label for="remember-me">Recuérdame</label>
         </div>
-        <input type="submit" value="Iniciar sesión" class="btn">
+        -->
+        <input type="button" onclick="validarUsuario()" value="Iniciar sesión" class="btn" id="iniciarSesion">
         <div class="links">
             <a href="#">¿Olvidaste tu contraseña?</a>
-            <a href="registro.html">Registrarse</a>
+            <a href="registro.html" id="botonRegistro" enabled="true" >Registrarse</a>
         </div>
     </form>
 </header>
@@ -46,7 +48,7 @@
 
     <div class="content">
         <h3> <span>¡Hola!</span> Bienvenidos a PetStore </h3>
-        <a href="#" class="btn">Compra ahora</a>
+        <a href="index_carrito.html" class="btn">Compra ahora</a>
     </div>
     <img src="image/bottom_wave.png" class="wave" alt="">
 </section>
@@ -58,145 +60,16 @@
     </div>
     <div class="content">
         <h3>Tus Accesorios <span>para mascotas</span> de la mejor calidad</h3>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum sint, dolore perspiciatis iure consequuntur eligendi quaerat vitae shaikh anas.</p>
-        <a href="#" class="btn">Conocer más</a>
+        <p>Un grupo de amigas comenzó a realizar la venta de productos para mascotas como bandanas, correas e identificaciones, todo esto para ayudar a una fundación sin fines de lucro, 
+            todo partió a través de las redes sociales, pero en la actualidad es casi imposible dar abasto a la demanda a través de las redes sociales.
+            Por eso, hemos decidido crear una tienda online para que puedas comprar tus productos de forma fácil y rápida. Nos asociamos con una ONG que nos ayuda de inspiración y a la que donamos todos los meses.
+            Si quieres saber más, presiona el botón de Conocer Más.
+        </p>
+        <a href="https://fundacionhuellaanimal.cl/quienes-somos/" class="btn">Conocer más</a>
     </div>
 
 </section>
 
-<!-- banner seccion accesorios -->
-
-<div class="dog-food">
-
-    <div class="image">
-        <img src="image/Disney___Bowl_Mickey.avif" alt="">
-    </div>
-
-    <div class="content">
-        <h3> <span>Plato</span> dog </h3>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugiat iure illo, repudiandae rem porro sunt.</p>
-        <div class="amount">$15.000 - $20.000</div>
-        <a href="#"> <img src="image/shop_now_dog.png" alt=""> </a>
-    </div>
-
-</div>
-
-<div class="cat-food">
-
-    <div class="content">
-        <h3> <span>Cama</span> cat </h3>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugiat iure illo, repudiandae rem porro sunt.</p>
-        <div class="amount">$50.000</div>
-        <a href="#"> <img src="image/shop_now_cat.png" alt=""> </a>
-    </div>
-
-    <div class="image">
-        <img src="image/cama_gato.avif" alt="">
-    </div>
-
-</div>
-
-<!-- tienda seccion  -->
-
-<section class="shop" id="shop">
-
-    <h1 class="heading"> Nuestros <span> productos </span> </h1>
-
-    <div class="box-container">
-
-        <div class="box">
-            <div class="icons">
-                <a href="#" class="fas fa-shopping-cart"></a>
-                <a href="#" class="fas fa-heart"></a>
-                <a href="#" class="fas fa-eye"></a>
-            </div>
-            <div class="image">
-                <img src="image/product_01.webp" alt="">
-            </div>
-            <div class="content">
-                <h3>Zeedog - Finger Puppets</h3>
-                <div class="amount"> $3.000 </div>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="icons">
-                <a href="#" class="fas fa-shopping-cart"></a>
-                <a href="#" class="fas fa-heart"></a>
-                <a href="#" class="fas fa-eye"></a>
-            </div>
-            <div class="image">
-                <img src="image/product_02.avif" alt="">
-            </div>
-            <div class="content">
-                <h3>Afp - Furry Ball Fluffy Ball Rosa</h3>
-                <div class="amount"> $1.500 </div>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="icons">
-                <a href="#" class="fas fa-shopping-cart"></a>
-                <a href="#" class="fas fa-heart"></a>
-                <a href="#" class="fas fa-eye"></a>
-            </div>
-            <div class="image">
-                <img src="image/product_03.webp" alt="">
-            </div>
-            <div class="content">
-                <h3>Cat It - Play Treat Puzzle</h3>
-                <div class="amount"> $25.000 </div>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="icons">
-                <a href="#" class="fas fa-shopping-cart"></a>
-                <a href="#" class="fas fa-heart"></a>
-                <a href="#" class="fas fa-eye"></a>
-            </div>
-            <div class="image">
-                <img src="image/product_04.avif" alt="">
-            </div>
-            <div class="content">
-                <h3>Petstages - Catnip Chew Mice</h3>
-                <div class="amount"> $5.000 </div>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="icons">
-                <a href="#" class="fas fa-shopping-cart"></a>
-                <a href="#" class="fas fa-heart"></a>
-                <a href="#" class="fas fa-eye"></a>
-            </div>
-            <div class="image">
-                <img src="image/product_05.avif" alt="">
-            </div>
-            <div class="content">
-                <h3>Cat It - Play Circuito 3 En 1 Con Pasto</h3>
-                <div class="amount"> $32.990 </div>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="icons">
-                <a href="#" class="fas fa-shopping-cart"></a>
-                <a href="#" class="fas fa-heart"></a>
-                <a href="#" class="fas fa-eye"></a>
-            </div>
-            <div class="image">
-                <img src="image/product_06.webp" alt="">
-            </div>
-            <div class="content">
-                <h3>Cat It - Play Circuito 3 En 1 Con Rasguñador</h3>
-                <div class="amount"> $45.000 </div>
-            </div>
-        </div>
-
-    </div>
-
-</section>
 
 <section class="contact" id="contact">
 
@@ -206,11 +79,11 @@
 
     <form action="">
         <h3>Contáctanos</h3>
-        <input type="text" placeholder="tu nombre" class="box" id="inputNombreContacto">
-        <input type="email" placeholder="tu correo" class="box" id="inputCorreoContacto">
-        <input type="tumber" placeholder="tu número de contacto" class="box" id="inputNumeroContacto">
+        <input type="text" placeholder="tu nombre" class="box" id="inputNombre">
+        <input type="email" placeholder="tu correo" class="box" id="inputCorreo">
+        <input type="tumber" placeholder="tu número de contacto" class="box">
         <textarea name="" placeholder="déjanos un mensaje" id="" cols="30" rows="10"></textarea>
-        <input type="submit" value="enviar mensaje" class="btn" id="botonEnviarContacto">
+        <input onclick="contacto()" type="submit" value="enviar mensaje" class="btn" id="botonEnviarContacto">
     </form>
 
 </section>
@@ -220,17 +93,12 @@
     <img src="image/top_wave.png" alt="">
 
     <div class="share">
-        <a href="https://es-la.facebook.com/" class="btn"> <i class="fab fa-facebook-f"></i> Facebook </a>
-        <a href="https://twitter.com/" class="btn"> <i class="fab fa-twitter"></i> Twitter </a>
-        <a href="https://www.instagram.com/" class="btn"> <i class="fab fa-instagram"></i> Instagram </a>
+        <a href="https://www.facebook.com" class="btn"> <i class="fab fa-facebook-f"></i> Facebook </a>
+        <a href="https://www.twitter.com" class="btn"> <i class="fab fa-twitter"></i> Twitter </a>
+        <a href="https://www.instagram.com" class="btn"> <i class="fab fa-instagram"></i> Instagram </a>
     </div>
     <div class="credit"> created by <span> Camila, Mauricio y Manuel </span></div>
 </section>
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
-  
-    <script src="js/script.js"></script>
-
+<script src="js/script.js"></script>
 </body>
 </html>

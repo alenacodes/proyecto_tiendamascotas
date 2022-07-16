@@ -4,13 +4,10 @@
     box-sizing: border-box;
   }
   
-  body {
-    background-image: url('https://raw.githubusercontent.com/RogerNatividad/Crear-un-Formulario-de-Registro-con-HTML-y-CSS-/master/fondo.jpg');
-  }
   
   .form-register {
     width: 400px;
-    background: #24303c;
+    background: rgb(51, 5, 5);
     padding: 30px;
     margin: auto;
     margin-top: 100px;
@@ -27,11 +24,11 @@
   
   .controls {
     width: 100%;
-    background: #24303c;
+    background: rgb(90, 18, 18);
     padding: 10px;
     border-radius: 4px;
     margin-bottom: 16px;
-    border: 1px solid #1f53c5;
+    border: 1px solid #c5541f;
     font-family: 'calibri';
     font-size: 18px;
     color: white;
@@ -45,7 +42,6 @@
   }
   
   .form-register a {
-    color: white;
     text-decoration: none;
   }
   
@@ -53,13 +49,34 @@
     color: white;
     text-decoration: underline;
   }
+
+  .btnVolver{
+    width: 100%;
+    background: #eb5403;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    color: white;
+    margin: 2px 0;
+    font-size: 16px;
+  }
   
   .form-register .btn {
     width: 100%;
-    background: #1f53c5;
+    background: #eb5403;
     border: none;
-    padding: 12px;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
     color: white;
-    margin: 16px 0;
+    margin: 2px 0;
     font-size: 16px;
+  }
+
+  body {
+    background-image: url('https://img.freepik.com/premium-vector/seamless-dog-pattern-with-paw-prints-bones-hearts-balls-cat-foot-texture-pattern-with-doggy_192280-793.jpg?w=2000');
+    
   }

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <!-- Bootstrap CSS -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+     <!--- Mis estilos -->
+     <!---<link rel="stylesheet" href="assets/css/style.css">-->
+     <link rel="stylesheet" href="css/style.css">
+          
+    </head>
+ <body>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+  
+    
+	<div class="container">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+			  <li class="breadcrumb-item active" aria-current="page">SECCIÓN BOLETA - CONFIRME SU PEDIDO</li>
+		      <li class="breadcrumb-item active" aria-current="page">Si desea regresar al carrito presione el botón VOLVER</li>		
+			  
+			</ol>
+		  </nav>
+		<div class ="section">			
+			<a class="btn btn-success" href="index_carrito.html" align ="left">VOLVER</a>
+		</div>
+		
+	</div>
+    
+    <div class="row mt-4">
+      <div class="col-sm-12">
+        <div class="card" style="height: 100%;">
+          <div class="card-body">
+            <h5 class="card-title">Datos Cliente
+            
+            </h5>
+            <div class="table-responsive">
+              <table class="table" id="datos">
+                <thead class="thead-dark">
+                  
+                  <tr>
+                    
+                    <th scope="col"><small>Primer Nombre</small></th>
+                    <th scope="col"><small>Apellido Paterno</small></th>
+                    <th scope="col"><small>Apellido Materno</small></th>
+                    <th scope="col"><small>Dirección</small></th>
+                    <th scope="col"><small>Comuna</small></th>
+                    <th scope="col"><small>Correo</small></th>
+                    
+                    
+                  </small>  
+                  </tr> 
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td scope="col"><small>Primer Nombre</small></td>
+                    <td scope="col">Apellido Paterno</td>
+                    <td scope="col">Apellido Materno</td>
+                    <td scope="col">Dirección</td>
+                    <td scope="col">Comuna</td>
+                    <td scope="col">Correo</td>
+                    
+                    
+                  </tr> 
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>  
+        </div> 
+      </div>
+    </div>
+    
+    <div class="row mt-4">
+      <div class="col-sm-12">
+        <div class="card" style="height: 100%;">
+          <div class="card-body">
+            <h5 class="card-title">Boleta
+            </h5>
+            <div class="table-responsive">
+              <table class="table" id="boleta">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">N° Productos</th>
+                    <th scope="col">Código</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Valor Venta</th>
+                    <th scope="col">Cantidad</th>
+                    
+                    
+                    
+                  </tr>
+                </thead>
+                
+
+                <tbody>
+                  <tr>
+                    <th scope="row"></th>
+                    
+                    <td>Código</td>
+                    <td>Nombre</td>
+                    <td>Valor Venta</td>
+                    <td>Stock</td>
+                    <td>Descripción</td>
+                    
+                    
+                  </tr> 
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>  
+        </div> 
+      </div>
+    </div>
+    
+
+
+
+
+    <div class="row mt-4">
+      <div class="col-sm-12">
+        <div class="card" style="height: 100%;">
+          <div class="card-body">
+            <h5 class="card-title">Total
+            </h5>
+            <div class="table-responsive">
+              <table class="table" id="total">
+                <thead class="thead-dark">
+
+
+                  
+                  <tr>
+                    <th scope="col">Total Productos</th>
+                    <th scope="col">Total Neto</th>
+                    <th scope="col">Total Iva</th>
+                    <th scope="col">Total a Pagar</th>
+                    
+                  </tr>
+                </thead>
+                                        
+
+                <tbody id = "detalleTotal">
+                  <tr>
+                    
+                    <td scope="col">Cantidad</td>
+                    <td scope="col">Valor Venta</td>
+                    <td scope="col">Iva</td>
+                    <td scope="col">Total a Pagar</td>
+                   
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>  
+        </div> 
+      </div>
+    </div>
+
+	<div class="container">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+			  <li class="breadcrumb-item active" aria-current="page">CONFIRME SU PEDIDO</li>
+		      <li class="breadcrumb-item active" aria-current="page">Presione el botón para confirmar la compra</li>		
+			  
+			</ol>
+		</nav>
+		  <a class="btn btn-success" id="confirmaCompra" href="formulario-despacho.html" align="right">CONFIRMAR COMPRA</a>
+		
+	</div>
+
+  <!--- script-->
+      
+   <script src="js/script_boleta_api.js"></script>
+  </body> 
+  
+</html>
